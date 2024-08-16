@@ -1,0 +1,190 @@
+[gd_scene load_steps=13 format=3 uid="uid://c1qc6e220y883"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_0m2ba"]
+[ext_resource type="Texture2D" uid="uid://bqd1x63hg4md0" path="res://assets/sprites/stars_bg.png" id="1_58dma"]
+[ext_resource type="PackedScene" uid="uid://btrvquvhubhoc" path="res://entities/enemies/enemy.tscn" id="2_g4r65"]
+[ext_resource type="PackedScene" uid="uid://dv0syiw8u61jl" path="res://entities/player.tscn" id="4_j5ffk"]
+[ext_resource type="PackedScene" uid="uid://xotvs8cqytjr" path="res://ui/player_lives_indicator/lives_indicator.tscn" id="6_t4ks0"]
+[ext_resource type="Script" path="res://ui/score_indicator.gd" id="6_wv3ej"]
+[ext_resource type="Texture2D" uid="uid://q06fk4lvtgku" path="res://assets/sprites/vewd_16x8.png" id="7_j8ab0"]
+[ext_resource type="FontFile" uid="uid://cwxgr01v16b3l" path="res://assets/fonts/at01.ttf" id="7_vsqmu"]
+[ext_resource type="Texture2D" uid="uid://bx6isexvfeul" path="res://assets/sprites/vewd_16x8_v2.png" id="8_abj07"]
+[ext_resource type="Script" path="res://utils/camera_shaker.gd" id="10_lkq1r"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_vpkfc"]
+normal = Vector2(0, 1)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_bjpph"]
+distance = -240.0
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_0m2ba")
+
+[node name="ParallaxLayer" type="Parallax2D" parent="."]
+repeat_size = Vector2(0, 240)
+autoscroll = Vector2(0, 10)
+
+[node name="StarsBg" type="Sprite2D" parent="ParallaxLayer"]
+texture = ExtResource("1_58dma")
+centered = false
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Enemy60" parent="Enemies" instance=ExtResource("2_g4r65")]
+position = Vector2(158, 93)
+
+[node name="Enemy61" parent="Enemies" instance=ExtResource("2_g4r65")]
+position = Vector2(244, 63)
+
+[node name="Enemy62" parent="Enemies" instance=ExtResource("2_g4r65")]
+position = Vector2(80, 64)
+
+[node name="Enemy63" parent="Enemies" instance=ExtResource("2_g4r65")]
+position = Vector2(125, 67)
+
+[node name="Enemy64" parent="Enemies" instance=ExtResource("2_g4r65")]
+position = Vector2(206, 66)
+
+[node name="Enemy65" parent="Enemies" instance=ExtResource("2_g4r65")]
+position = Vector2(281, 44)
+
+[node name="Enemy66" parent="Enemies" instance=ExtResource("2_g4r65")]
+position = Vector2(179, 51)
+
+[node name="Players" type="Node2D" parent="."]
+
+[node name="Player" parent="Players" instance=ExtResource("4_j5ffk")]
+position = Vector2(100, 210)
+
+[node name="Player2" parent="Players" instance=ExtResource("4_j5ffk")]
+position = Vector2(220, 210)
+is_disabled = true
+id = 1
+
+[node name="BoundsArea" type="Area2D" parent="." groups=["Bounds"]]
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BoundsArea"]
+shape = SubResource("WorldBoundaryShape2D_vpkfc")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="BoundsArea"]
+shape = SubResource("WorldBoundaryShape2D_bjpph")
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PackedVector2Array(0, 220, 320, 220)
+width = 2.0
+default_color = Color(0, 0.654902, 0.882353, 1)
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="TopMarginContainer" type="MarginContainer" parent="UI"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 5.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+
+[node name="HiScoreContainer" type="VBoxContainer" parent="UI/TopMarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="HiScoreTitle" type="Label" parent="UI/TopMarginContainer/HiScoreContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_vsqmu")
+text = "HI-SCORE"
+horizontal_alignment = 1
+
+[node name="HiScoreLabel" type="Label" parent="UI/TopMarginContainer/HiScoreContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_vsqmu")
+text = "9999999999"
+horizontal_alignment = 1
+
+[node name="Player0ScoreContainer" type="VBoxContainer" parent="UI/TopMarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 0
+
+[node name="P0ScoreTitle" type="Label" parent="UI/TopMarginContainer/Player0ScoreContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_vsqmu")
+text = "<P1> - SCORE"
+
+[node name="P0ScoreLabel" type="Label" parent="UI/TopMarginContainer/Player0ScoreContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_vsqmu")
+text = "9999999999"
+script = ExtResource("6_wv3ej")
+
+[node name="Player1ScoreContainer" type="VBoxContainer" parent="UI/TopMarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_constants/separation = 0
+alignment = 2
+
+[node name="P1ScoreTitle" type="Label" parent="UI/TopMarginContainer/Player1ScoreContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_vsqmu")
+text = "<P2> - SCORE"
+horizontal_alignment = 2
+
+[node name="P1ScoreLabel" type="Label" parent="UI/TopMarginContainer/Player1ScoreContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_vsqmu")
+text = "9999999999"
+horizontal_alignment = 2
+script = ExtResource("6_wv3ej")
+
+[node name="BottomMarginContainer" type="MarginContainer" parent="UI"]
+offset_top = 222.0
+offset_right = 320.0
+offset_bottom = 240.0
+size_flags_horizontal = 8
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 5
+
+[node name="Player0Lives" parent="UI/BottomMarginContainer" instance=ExtResource("6_t4ks0")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 8
+texture = ExtResource("7_j8ab0")
+
+[node name="Player1Lives" parent="UI/BottomMarginContainer" instance=ExtResource("6_t4ks0")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+texture = ExtResource("8_abj07")
+
+[node name="Player0Status" type="Label" parent="UI/BottomMarginContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_fonts/font = ExtResource("7_vsqmu")
+text = "Press ANY key to start"
+
+[node name="Player1Status" type="Label" parent="UI/BottomMarginContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_fonts/font = ExtResource("7_vsqmu")
+text = "GAME OVER"
+
+[node name="Player1PressToStart" type="Label" parent="UI/BottomMarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_fonts/font = ExtResource("7_vsqmu")
+text = "Press ANY key to start"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+script = ExtResource("10_lkq1r")

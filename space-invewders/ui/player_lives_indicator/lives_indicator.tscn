@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://xotvs8cqytjr"]
+
+[ext_resource type="Script" path="res://ui/player_lives_indicator/lives_indicator.gd" id="1_5h7na"]
+
+[node name="PlayerLivesIndicator" type="HBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+script = ExtResource("1_5h7na")

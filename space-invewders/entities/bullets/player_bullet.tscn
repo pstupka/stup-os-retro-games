@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://mxv8nvvm1trn"]
+
+[ext_resource type="Script" path="res://entities/bullets/player_bullet.gd" id="1_82st6"]
+[ext_resource type="Texture2D" uid="uid://dwc0p6g5p7ytw" path="res://assets/sprites/player_bullet.png" id="2_kw8vx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a5rch"]
+size = Vector2(2, 6)
+
+[node name="EnemyBullet" type="Area2D"]
+collision_layer = 8
+script = ExtResource("1_82st6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_a5rch")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_kw8vx")
