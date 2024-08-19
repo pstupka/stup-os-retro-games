@@ -6,14 +6,17 @@ const MAIN: PackedScene = preload("res://main.tscn")
 @onready var start_single_player: Button = $MarginContainer/VBoxContainer/StartSinglePlayer
 @onready var start_multiplayer: Button = $MarginContainer/VBoxContainer/StartMultiplayer
 @onready var exit_button: Button = $MarginContainer/VBoxContainer/ExitButton
+@onready var settings_button: Button = $MarginContainer/VBoxContainer/SettingsButton
 
 
 func _ready() -> void:
 	animation_player.play("intro")
-	start_single_player.pressed.connect(_on_menu_button_pressed.bind(start_single_player))
-	start_multiplayer.pressed.connect(_on_menu_button_pressed.bind(start_multiplayer))
+	start_single_player.pressed.connect(_on_menu_button_pressed.bind(start_single_player), ConnectFlags.CONNECT_ONE_SHOT)
+	start_multiplayer.pressed.connect(_on_menu_button_pressed.bind(start_multiplayer), ConnectFlags.CONNECT_ONE_SHOT)
 	exit_button.pressed.connect(_on_menu_button_pressed.bind(exit_button))
+	settings_button.pressed.connect(_on_menu_button_pressed.bind(settings_button))
 	start_single_player.grab_focus()
+	print(ProjectSettings.globalize_path("user://"))
 
 
 func _input(event: InputEvent) -> void:
@@ -28,6 +31,10 @@ func _process(delta: float) -> void:
 func _on_menu_button_pressed(button: Button) -> void:
 	if button.name == exit_button.name:
 		get_tree().quit()
+		return
+
+	if button.name == settings_button.name:
+		print("Settings button pressed")
 		return
 
 	if button.name == start_single_player.name:

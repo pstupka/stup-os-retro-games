@@ -22,9 +22,11 @@ extends Node2D
 			player_1.make_immune(2.0)
 			player_1_press_to_start.queue_free()
 
+var is_game_over: bool = false
 
 func _ready() -> void:
 	single_player = GameController.game_mode == GameController.GAME_MODE.Single
+	hi_score_label.text = "%012d" % Leaderboard.get_high_score()
 	player_0_lives.init(player_0)
 	player_1_lives.init(player_1)
 	player_0.died.connect(_on_player_0_died)
@@ -38,13 +40,12 @@ func _ready() -> void:
 	start_game()
 
 
-
 func start_game() -> void:
 	player_0.make_immune(2.0)
 
 
 func _input(event: InputEvent) -> void:
-	if single_player:
+	if single_player and not is_game_over:
 		if Input.is_action_pressed("p1_move_left") or \
 			Input.is_action_pressed("p1_move_right") or \
 			Input.is_action_pressed("p1_shoot"):
@@ -55,7 +56,24 @@ func _on_player_0_died() -> void:
 	player_0_status.text = "GAME OVER"
 	Utils.blink_node(player_0_status)
 
+	if player_1.is_disabled:
+		game_over()
+
 
 func _on_player_1_died() -> void:
 	player_1_status.text = "GAME OVER"
 	Utils.blink_node(player_1_status)
+
+	if player_0.is_disabled:
+		game_over()
+
+
+func game_over() -> void:
+	is_game_over = true
+
+	if is_instance_valid(player_1_press_to_start):
+		player_1_press_to_start.queue_free()
+
+	var high_score = maxi(player_0.score, player_1.score)
+	if high_score > 0 and Leaderboard.is_score_valid(high_score):
+		Leaderboard.add_score("", high_score)

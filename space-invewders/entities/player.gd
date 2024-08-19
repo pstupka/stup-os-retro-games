@@ -88,7 +88,7 @@ func take_damage() -> void:
 
 func die() -> void:
 	died.emit()
-	queue_free()
+	is_disabled = true
 
 
 func make_immune(time: float) -> void:
