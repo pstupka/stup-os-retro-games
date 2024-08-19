@@ -21,11 +21,10 @@ func take_damage(from: Player) -> void:
 func _on_shoot_timer_timeout() -> void:
 	shoot_timer.start(randf_range(5.0, 10.0))
 	var bullet: EnemyBullet = BULLET.instantiate()
-	bullet.set_as_top_level(true)
 	bullet.global_position = global_position + Vector2(0, 8)
 	bullet.direction = Vector2.DOWN
 	bullet.speed = 100
-	add_child(bullet)
+	get_tree().root.add_child(bullet)
 
 
 func _on_area_entered(area: PlayerBullet) -> void:

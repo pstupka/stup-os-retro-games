@@ -10,6 +10,7 @@ extends Node2D
 @onready var p_0_score_label: Label = $UI/TopMarginContainer/Player0ScoreContainer/P0ScoreLabel
 @onready var p_1_score_label: Label = $UI/TopMarginContainer/Player1ScoreContainer/P1ScoreLabel
 @onready var player_1_press_to_start: Label = $UI/BottomMarginContainer/Player1PressToStart
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 
 @export var single_player: bool = true:
@@ -23,7 +24,7 @@ extends Node2D
 
 
 func _ready() -> void:
-	single_player = single_player
+	single_player = GameController.game_mode == GameController.GAME_MODE.Single
 	player_0_lives.init(player_0)
 	player_1_lives.init(player_1)
 	player_0.died.connect(_on_player_0_died)
@@ -33,7 +34,12 @@ func _ready() -> void:
 
 	if single_player:
 		Utils.blink_node(player_1_press_to_start)
+	await animation_player.animation_finished
+	start_game()
 
+
+
+func start_game() -> void:
 	player_0.make_immune(2.0)
 
 

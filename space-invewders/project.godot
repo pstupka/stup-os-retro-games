@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Space InVewders"
 config/version="0.0.1"
-run/main_scene="res://main.tscn"
+run/main_scene="res://ui/main_menu/main_menu.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 boot_splash/bg_color=Color(0.0745098, 0.0745098, 0.0745098, 1)
 boot_splash/show_image=false
@@ -22,6 +22,7 @@ config/icon="res://icon.svg"
 
 Events="*res://autoloads/events.gd"
 Crt="*res://autoloads/crt.tscn"
+GameController="*res://autoloads/game_controller.gd"
 
 [display]
 

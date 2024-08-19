@@ -1,13 +1,13 @@
-[gd_scene load_steps=13 format=3 uid="uid://c1qc6e220y883"]
+[gd_scene load_steps=16 format=3 uid="uid://c1qc6e220y883"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_0m2ba"]
 [ext_resource type="Texture2D" uid="uid://bqd1x63hg4md0" path="res://assets/sprites/stars_bg.png" id="1_58dma"]
 [ext_resource type="PackedScene" uid="uid://btrvquvhubhoc" path="res://entities/enemies/enemy.tscn" id="2_g4r65"]
 [ext_resource type="PackedScene" uid="uid://dv0syiw8u61jl" path="res://entities/player.tscn" id="4_j5ffk"]
+[ext_resource type="FontFile" uid="uid://const71ku4jon" path="res://assets/fonts/monogram.ttf" id="5_x2uu2"]
 [ext_resource type="PackedScene" uid="uid://xotvs8cqytjr" path="res://ui/player_lives_indicator/lives_indicator.tscn" id="6_t4ks0"]
 [ext_resource type="Script" path="res://ui/score_indicator.gd" id="6_wv3ej"]
 [ext_resource type="Texture2D" uid="uid://q06fk4lvtgku" path="res://assets/sprites/vewd_16x8.png" id="7_j8ab0"]
-[ext_resource type="FontFile" uid="uid://cwxgr01v16b3l" path="res://assets/fonts/at01.ttf" id="7_vsqmu"]
 [ext_resource type="Texture2D" uid="uid://bx6isexvfeul" path="res://assets/sprites/vewd_16x8_v2.png" id="8_abj07"]
 [ext_resource type="Script" path="res://utils/camera_shaker.gd" id="10_lkq1r"]
 
@@ -16,6 +16,43 @@ normal = Vector2(0, 1)
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_bjpph"]
 distance = -240.0
+
+[sub_resource type="Animation" id="Animation_2na1c"]
+resource_name = "intro"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TransitionLayer/ColorRect:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(320, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_jah6p"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TransitionLayer/ColorRect:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8kqur"]
+_data = {
+"RESET": SubResource("Animation_jah6p"),
+"intro": SubResource("Animation_2na1c")
+}
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_0m2ba")
@@ -94,15 +131,15 @@ alignment = 1
 
 [node name="HiScoreTitle" type="Label" parent="UI/TopMarginContainer/HiScoreContainer"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("7_vsqmu")
+theme_override_fonts/font = ExtResource("5_x2uu2")
 text = "HI-SCORE"
 horizontal_alignment = 1
 
 [node name="HiScoreLabel" type="Label" parent="UI/TopMarginContainer/HiScoreContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_fonts/font = ExtResource("7_vsqmu")
-text = "9999999999"
+theme_override_fonts/font = ExtResource("5_x2uu2")
+text = "000000000000000"
 horizontal_alignment = 1
 
 [node name="Player0ScoreContainer" type="VBoxContainer" parent="UI/TopMarginContainer"]
@@ -112,12 +149,12 @@ theme_override_constants/separation = 0
 
 [node name="P0ScoreTitle" type="Label" parent="UI/TopMarginContainer/Player0ScoreContainer"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("7_vsqmu")
+theme_override_fonts/font = ExtResource("5_x2uu2")
 text = "<P1> - SCORE"
 
 [node name="P0ScoreLabel" type="Label" parent="UI/TopMarginContainer/Player0ScoreContainer"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("7_vsqmu")
+theme_override_fonts/font = ExtResource("5_x2uu2")
 text = "9999999999"
 script = ExtResource("6_wv3ej")
 
@@ -129,23 +166,32 @@ alignment = 2
 
 [node name="P1ScoreTitle" type="Label" parent="UI/TopMarginContainer/Player1ScoreContainer"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("7_vsqmu")
+theme_override_fonts/font = ExtResource("5_x2uu2")
 text = "<P2> - SCORE"
 horizontal_alignment = 2
 
 [node name="P1ScoreLabel" type="Label" parent="UI/TopMarginContainer/Player1ScoreContainer"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("7_vsqmu")
+theme_override_fonts/font = ExtResource("5_x2uu2")
 text = "9999999999"
 horizontal_alignment = 2
 script = ExtResource("6_wv3ej")
 
 [node name="BottomMarginContainer" type="MarginContainer" parent="UI"]
-offset_top = 222.0
-offset_right = 320.0
-offset_bottom = 240.0
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -160.0
+offset_top = -23.0
+offset_right = 160.0
+grow_horizontal = 2
+grow_vertical = 0
 size_flags_horizontal = 8
+size_flags_vertical = 8
 theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 5
 
@@ -157,7 +203,6 @@ texture = ExtResource("7_j8ab0")
 
 [node name="Player1Lives" parent="UI/BottomMarginContainer" instance=ExtResource("6_t4ks0")]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
@@ -168,23 +213,36 @@ unique_name_in_owner = true
 visible = false
 layout_mode = 2
 size_flags_horizontal = 0
-theme_override_fonts/font = ExtResource("7_vsqmu")
-text = "Press ANY key to start"
+theme_override_fonts/font = ExtResource("5_x2uu2")
+text = "GAME OVER"
 
 [node name="Player1Status" type="Label" parent="UI/BottomMarginContainer"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 size_flags_horizontal = 8
-theme_override_fonts/font = ExtResource("7_vsqmu")
+theme_override_fonts/font = ExtResource("5_x2uu2")
 text = "GAME OVER"
 
 [node name="Player1PressToStart" type="Label" parent="UI/BottomMarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
-theme_override_fonts/font = ExtResource("7_vsqmu")
-text = "Press ANY key to start"
+theme_override_fonts/font = ExtResource("5_x2uu2")
+text = "Press ANY key to START"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
 script = ExtResource("10_lkq1r")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_8kqur")
+}
+autoplay = "intro"
+
+[node name="TransitionLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="TransitionLayer"]
+offset_right = 320.0
+offset_bottom = 240.0
+color = Color(0.0745098, 0.0745098, 0.0745098, 1)

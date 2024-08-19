@@ -3,7 +3,7 @@ extends Label
 var score: int = 0:
 	set(new_score):
 		score = new_score
-		text = str(score)
+		text = "%012d" % score
 
 
 func init(player: Player) -> void:

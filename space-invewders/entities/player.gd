@@ -68,10 +68,9 @@ func shoot() -> void:
 	tween.tween_property(sprite, "scale", Vector2(0.8, 1.3), 0.05)
 	tween.tween_property(sprite, "scale", Vector2.ONE, 0.1)
 	var bullet: Bullet = BULLET.instantiate()
-	bullet.set_as_top_level(true)
 	bullet.global_position = global_position + Vector2(0, -10)
 	bullet.player = self
-	add_child(bullet)
+	get_tree().root.add_child(bullet)
 
 
 func take_damage() -> void:
@@ -108,6 +107,7 @@ func make_immune(time: float) -> void:
 func add_score(score_to_add: int) -> void:
 	score += score_to_add
 	score_changed.emit(score)
+
 
 func _on_area_entered(bullet: EnemyBullet) -> void:
 	if not bullet or bullet.dealt_damage:
