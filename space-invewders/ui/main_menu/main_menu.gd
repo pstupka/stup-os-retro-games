@@ -24,10 +24,6 @@ func _input(event: InputEvent) -> void:
 		animation_player.play("RESET")
 
 
-func _process(delta: float) -> void:
-	pass
-
-
 func _on_menu_button_pressed(button: Button) -> void:
 	if button.name == exit_button.name:
 		get_tree().quit()

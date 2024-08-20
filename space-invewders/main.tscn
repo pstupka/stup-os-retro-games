@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://c1qc6e220y883"]
+[gd_scene load_steps=18 format=3 uid="uid://c1qc6e220y883"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_0m2ba"]
 [ext_resource type="Texture2D" uid="uid://bqd1x63hg4md0" path="res://assets/sprites/stars_bg.png" id="1_58dma"]
@@ -9,13 +9,30 @@
 [ext_resource type="Script" path="res://ui/score_indicator.gd" id="6_wv3ej"]
 [ext_resource type="Texture2D" uid="uid://q06fk4lvtgku" path="res://assets/sprites/vewd_16x8.png" id="7_j8ab0"]
 [ext_resource type="Texture2D" uid="uid://bx6isexvfeul" path="res://assets/sprites/vewd_16x8_v2.png" id="8_abj07"]
+[ext_resource type="FontFile" uid="uid://befrid7dl845j" path="res://assets/fonts/ThickPixels.ttf" id="10_8hlqv"]
 [ext_resource type="Script" path="res://utils/camera_shaker.gd" id="10_lkq1r"]
+[ext_resource type="Script" path="res://utils/level_label.gd" id="11_k3im6"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_vpkfc"]
 normal = Vector2(0, 1)
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_bjpph"]
 distance = -240.0
+
+[sub_resource type="Animation" id="Animation_jah6p"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TransitionLayer/ColorRect:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_2na1c"]
 resource_name = "intro"
@@ -31,21 +48,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(0, 0), Vector2(320, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_jah6p"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("TransitionLayer/ColorRect:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8kqur"]
@@ -229,6 +231,24 @@ layout_mode = 2
 size_flags_horizontal = 8
 theme_override_fonts/font = ExtResource("5_x2uu2")
 text = "Press ANY key to START"
+
+[node name="LevelLabel" type="Label" parent="UI"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -28.5
+offset_top = -8.0
+offset_right = 28.5
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.835294, 0.835294, 0.835294, 1)
+theme_override_fonts/font = ExtResource("10_8hlqv")
+text = "LEVEL 10"
+script = ExtResource("11_k3im6")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0

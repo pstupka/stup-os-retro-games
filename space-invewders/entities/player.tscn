@@ -12,8 +12,8 @@ collision_mask = 16
 monitorable = false
 script = ExtResource("1_vqee6")
 
-[node name="Sprite" type="Sprite2D" parent="."]
-texture = ExtResource("1_4psss")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_c3xut")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_4psss")
