@@ -1,10 +1,67 @@
-[gd_scene load_steps=4 format=3 uid="uid://btrvquvhubhoc"]
+[gd_scene load_steps=11 format=3 uid="uid://btrvquvhubhoc"]
 
 [ext_resource type="Script" path="res://entities/enemies/enemy.gd" id="1_fkusa"]
 [ext_resource type="Texture2D" uid="uid://q06fk4lvtgku" path="res://assets/sprites/vewd_16x8.png" id="1_fm2ah"]
+[ext_resource type="Texture2D" uid="uid://clqdq0117n025" path="res://assets/sprites/explosions/explosion_anim.png" id="3_payte"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1ebj0"]
 size = Vector2(16, 7)
+
+[sub_resource type="Animation" id="Animation_iox7t"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pivot/Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_twy43"]
+resource_name = "idle"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pivot/Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5),
+"transitions": PackedFloat32Array(8.57418, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.4, 0.8), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_llvdd"]
+resource_name = "shoot"
+length = 0.2
+step = 0.05
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ut5jy"]
+_data = {
+"RESET": SubResource("Animation_iox7t"),
+"idle": SubResource("Animation_twy43"),
+"shoot": SubResource("Animation_llvdd")
+}
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_gtv2x"]
+particles_animation = true
+particles_anim_h_frames = 9
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ctty7"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+anim_speed_min = 2.0
+anim_speed_max = 2.0
 
 [node name="Enemy" type="Area2D" groups=["Enemy"]]
 collision_layer = 4
@@ -16,9 +73,25 @@ score = 1000
 position = Vector2(0, -1.5)
 shape = SubResource("RectangleShape2D_1ebj0")
 
-[node name="Sprite" type="Sprite2D" parent="."]
+[node name="Pivot" type="Node2D" parent="."]
+
+[node name="Sprite" type="Sprite2D" parent="Pivot"]
 texture = ExtResource("1_fm2ah")
 flip_v = true
 
 [node name="ShootTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ut5jy")
+}
+autoplay = "idle"
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_gtv2x")
+emitting = false
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_ctty7")
+texture = ExtResource("3_payte")
 one_shot = true

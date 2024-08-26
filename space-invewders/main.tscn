@@ -261,6 +261,7 @@ libraries = {
 autoplay = "intro"
 
 [node name="TransitionLayer" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="ColorRect" type="ColorRect" parent="TransitionLayer"]
 offset_right = 320.0

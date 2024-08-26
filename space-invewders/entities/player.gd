@@ -31,7 +31,10 @@ var lives: int = 4:
 var immune_time: float = 1.0
 var is_immune: bool = false
 var score: int = 0
-
+var damage_multiplier: float = 1.0:
+	set(value):
+		damage_multiplier = value
+var shots_fired: int = 0
 var _can_move: bool = true
 
 
@@ -81,6 +84,7 @@ func shoot() -> void:
 	bullet.global_position = global_position + Vector2(0, -10)
 	bullet.player = self
 	get_tree().root.add_child(bullet)
+	shots_fired += 1
 
 
 func take_damage() -> void:
@@ -141,6 +145,10 @@ func knockback() -> void:
 func add_score(score_to_add: int) -> void:
 	score += score_to_add
 	score_changed.emit(score)
+
+
+func get_damage_multiplier() -> float:
+	return damage_multiplier
 
 
 func _on_area_entered(bullet: EnemyBullet) -> void:

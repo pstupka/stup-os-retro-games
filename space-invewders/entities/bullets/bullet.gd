@@ -4,6 +4,7 @@ class_name Bullet
 
 @export var speed: float = 300.0
 @export var direction: Vector2 = Vector2.UP
+@export var damage: float = 1.0
 
 
 func _ready() -> void:
