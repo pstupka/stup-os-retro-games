@@ -23,7 +23,7 @@ obstacle_separation = 150
 texture = ExtResource("2_osirv")
 centered = false
 
-[node name="Bounds" type="Area2D" parent="."]
+[node name="Bounds" type="Area2D" parent="." groups=["Obstacles"]]
 collision_mask = 0
 monitoring = false
 

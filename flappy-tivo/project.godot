@@ -41,6 +41,7 @@ Bounds=""
 Enemy=""
 Obstacles=""
 Score=""
+Player=""
 
 [input]
 

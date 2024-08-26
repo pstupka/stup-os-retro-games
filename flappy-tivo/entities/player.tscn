@@ -56,17 +56,18 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Player" type="Area2D"]
+[node name="Player" type="Area2D" groups=["Player"]]
 z_index = 1
-collision_layer = 0
-monitorable = false
+collision_layer = 2
 script = ExtResource("1_vqee6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_c3xut")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+[node name="BottomCollision" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BottomCollision"]
 position = Vector2(0, 9.5)
 shape = SubResource("RectangleShape2D_0ln6c")
 
@@ -119,3 +120,6 @@ texture = ExtResource("2_l2dv1")
 centered = false
 region_enabled = true
 region_rect = Rect2(12, 26, 5, 2)
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+scale = Vector2(2, 2)

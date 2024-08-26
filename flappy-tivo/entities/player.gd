@@ -15,15 +15,16 @@ const MAX_VELOCITY: float = 300
 @onready var leg_l: Sprite2D = $SpritePivot/LegL
 @onready var leg_r: Sprite2D = $SpritePivot/LegR
 @onready var eyes_blink_timer: Timer = $EyesBlinkTimer
+@onready var bottom_collision: Area2D = $BottomCollision
 
 @export var controls: PlayerControls = preload("res://utils/p0_controls.tres")
 @export var jump_velocity: float = 250.0
 @export var player_gravity: float = 500.0
 
 var score = 0.0
-var velocity: float = 0.0
+var velocity: Vector2 = Vector2.ZERO
 var time_tick: float = 0
-
+var dead: bool = false
 var _prev_position: float = 0.0
 
 
@@ -32,6 +33,7 @@ func _ready() -> void:
 	_prev_position = position.y
 
 	eyes_blink_timer.timeout.connect(_on_blink_timer_timeout)
+	bottom_collision.area_entered.connect(_on_bottom_area_entered)
 
 
 func _physics_process(delta: float) -> void:
@@ -41,15 +43,14 @@ func _physics_process(delta: float) -> void:
 		animation_sprite(_prev_position - position.y, false)
 		_prev_position = position.y
 		return
+	velocity.y += player_gravity * delta
 
-	velocity += player_gravity * delta
+	if Input.is_action_just_pressed(controls.jump) and not dead:
+		#print(controls.jump + " pressed")
+		velocity.y -= jump_velocity
 
-	if Input.is_action_just_pressed(controls.jump):
-		print(controls.jump + " pressed")
-		velocity -= jump_velocity
-
-	velocity = clamp(velocity, -MAX_VELOCITY * 0.7, MAX_VELOCITY)
-	position.y += velocity * delta
+	velocity.y = clamp(velocity.y, -MAX_VELOCITY * 0.7, MAX_VELOCITY)
+	position += velocity * delta
 	animation_sprite(_prev_position - position.y)
 	_prev_position = position.y
 
@@ -68,15 +69,16 @@ func add_score(score_to_add: int) -> void:
 	score_changed.emit(score)
 
 
-func die() -> void:
+func die(impulse_velocity: Vector2 = Vector2.ZERO) -> void:
 	print(str(self) + " died")
+	Events.add_shake_trauma.emit(0.5)
+	dead = true
 	died.emit()
-	set_physics_process(false)
+	velocity = impulse_velocity
 	$CollisionShape2D.call_deferred("set_disabled", true)
+	$BottomCollision/CollisionShape2D.call_deferred("set_disabled", true)
 	eyes_blink_timer.stop()
 	eyes.play("dead")
-	var tween: Tween = create_tween()
-	tween.tween_property(self, "global_position:y", 300, 5.0).set_delay(1)
 	#queue_free()
 
 
@@ -87,7 +89,12 @@ func _on_area_entered(area: Area2D) -> void:
 		return
 
 	if area.is_in_group("Obstacles"):
-		die()
+		die(Vector2(-30, -MAX_VELOCITY * 0.5))
+
+
+func _on_bottom_area_entered(area: Area2D) -> void:
+	if area.is_in_group("Obstacles"):
+		die(Vector2(30, -MAX_VELOCITY * 0.5))
 
 
 func _on_blink_timer_timeout() -> void:

@@ -29,6 +29,7 @@ func _ready() -> void:
 
 		players["1"].viewport.size = GameController.SCREEN_SIZE
 		players["1"].camera.offset = GameController.SCREEN_SIZE/2
+		players["1"].camera.initial_offset = players["1"].camera.offset
 		players["1"].player.global_position.x += GameController.SCREEN_SIZE.x/4
 	else:
 		players["2"].player.score_changed.connect(players["2"].level._on_player_score_changed)

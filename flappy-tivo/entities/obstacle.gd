@@ -1,36 +1,21 @@
 extends Area2D
 
-const POSTERS_ARRAY: Array[Texture] = [
-	preload("res://assets/sprites/posters/poster_01.png"),
-	preload("res://assets/sprites/posters/poster_02.png"),
-	preload("res://assets/sprites/posters/poster_03.png"),
-	preload("res://assets/sprites/posters/poster_04.png"),
-	preload("res://assets/sprites/posters/poster_05.png"),
-	preload("res://assets/sprites/posters/poster_06.png"),
-	preload("res://assets/sprites/posters/poster_07.png"),
-	preload("res://assets/sprites/posters/poster_08.png"),
-	preload("res://assets/sprites/posters/poster_09.png"),
-	preload("res://assets/sprites/posters/poster_10.png"),
-	preload("res://assets/sprites/posters/poster_11.png"),
-	preload("res://assets/sprites/posters/poster_12.png"),
-	preload("res://assets/sprites/posters/poster_13.png"),
-	preload("res://assets/sprites/posters/poster_14.png"),
-	preload("res://assets/sprites/posters/poster_15.png"),
-	preload("res://assets/sprites/posters/poster_16.png"),
-	preload("res://assets/sprites/posters/poster_17.png"),
-	preload("res://assets/sprites/posters/poster_18.png"),
-	preload("res://assets/sprites/posters/poster_19.png"),
-	preload("res://assets/sprites/posters/poster_20.png"),
-	preload("res://assets/sprites/posters/poster_21.png"),
-	preload("res://assets/sprites/posters/poster_22.png"),
-	preload("res://assets/sprites/posters/poster_23.png"),
-	preload("res://assets/sprites/posters/poster_24.png"),
-	preload("res://assets/sprites/posters/poster_25.png"),
-	preload("res://assets/sprites/posters/poster_26.png")
-]
 @onready var posters: Node2D = $Posters
+@onready var score_area: Area2D = $ScoreArea
+@onready var score_selector: Sprite2D = $ScoreSelector
 
 
 func _ready() -> void:
 	for sprite in posters.get_children():
-		sprite.texture = POSTERS_ARRAY.pick_random()
+		sprite.texture = load("res://assets/sprites/posters/%d.png" % randi_range(1, 195))
+	score_area.area_entered.connect(_on_score_area_entered)
+
+
+func _on_score_area_entered(area: Area2D) -> void:
+	if area.is_in_group("Player"):
+		var tween: Tween = create_tween().set_loops(10)
+		tween.tween_property(score_selector, "self_modulate:b", 0, 0.04)
+		tween.tween_property(score_selector, "self_modulate:b", 1, 0.04)
+
+		tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
+		tween.tween_property(score_selector, "scale", Vector2(1, 1), 0.4).from(Vector2(1.3, 1.3))
