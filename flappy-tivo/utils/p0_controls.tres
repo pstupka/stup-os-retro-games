@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="PlayerControls" load_steps=2 format=3 uid="uid://dqeh8wtpkxy1n"]
+
+[ext_resource type="Script" path="res://utils/player_controls.gd" id="1_0kpws"]
+
+[resource]
+script = ExtResource("1_0kpws")
+jump = "p0_jump"

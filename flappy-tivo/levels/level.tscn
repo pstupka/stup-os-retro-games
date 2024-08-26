@@ -1,0 +1,68 @@
+[gd_scene load_steps=7 format=3 uid="uid://7q3pivojk6lu"]
+
+[ext_resource type="Script" path="res://levels/level.gd" id="1_7n63p"]
+[ext_resource type="FontFile" uid="uid://dw2bhf6fq1yq1" path="res://assets/fonts/ThickPixels.ttf" id="2_fe47f"]
+[ext_resource type="Texture2D" uid="uid://dlbpwqped2g8s" path="res://assets/sprites/bg_hbbtv.png" id="2_osirv"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_1xegp"]
+distance = -240.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_oa1sn"]
+normal = Vector2(0, 1)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_qq8hd"]
+normal = Vector2(1, 0)
+distance = -200.0
+
+[node name="Level" type="Node"]
+script = ExtResource("1_7n63p")
+obstacle_speed = 60.0
+obstacle_separation = 150
+
+[node name="Background" type="Sprite2D" parent="."]
+texture = ExtResource("2_osirv")
+centered = false
+
+[node name="Bounds" type="Area2D" parent="."]
+collision_mask = 0
+monitoring = false
+
+[node name="BottomBounds" type="CollisionShape2D" parent="Bounds"]
+shape = SubResource("WorldBoundaryShape2D_1xegp")
+
+[node name="TopBound" type="CollisionShape2D" parent="Bounds"]
+shape = SubResource("WorldBoundaryShape2D_oa1sn")
+
+[node name="ObstacleBounds" type="Area2D" parent="."]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ObstacleBounds"]
+shape = SubResource("WorldBoundaryShape2D_qq8hd")
+
+[node name="GUI" type="Control" parent="."]
+z_index = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="GUI"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -9.0
+offset_right = 9.0
+offset_bottom = 62.0
+grow_horizontal = 2
+theme_override_constants/margin_top = 30
+
+[node name="ScoreLabel" type="Label" parent="GUI/MarginContainer"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_fe47f")
+theme_override_font_sizes/font_size = 32
+text = "0"
+horizontal_alignment = 1

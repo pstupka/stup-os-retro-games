@@ -1,0 +1,65 @@
+[gd_scene load_steps=8 format=3 uid="uid://cw58g0be4v7vy"]
+
+[ext_resource type="Script" path="res://entities/obstacle.gd" id="1_bwnan"]
+[ext_resource type="Texture2D" uid="uid://o7twvs2278kb" path="res://assets/sprites/posters/poster_01.png" id="1_se13s"]
+[ext_resource type="Texture2D" uid="uid://c44ooewq8d6g2" path="res://assets/sprites/posters/poster_02.png" id="2_cenrt"]
+[ext_resource type="Texture2D" uid="uid://dtsiiqqekfekg" path="res://assets/sprites/posters/poster_03.png" id="3_8mxtk"]
+[ext_resource type="Texture2D" uid="uid://dwjpal6oex43b" path="res://assets/sprites/selector.png" id="4_hifi1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dr57n"]
+size = Vector2(40, 152)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1msrf"]
+size = Vector2(30, 60)
+
+[node name="Obstacle" type="Area2D" groups=["Obstacles"]]
+collision_mask = 0
+monitoring = false
+script = ExtResource("1_bwnan")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 76)
+shape = SubResource("RectangleShape2D_dr57n")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
+position = Vector2(0, 292)
+shape = SubResource("RectangleShape2D_dr57n")
+
+[node name="ScoreArea" type="Area2D" parent="." groups=["Score"]]
+position = Vector2(0, 184)
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ScoreArea"]
+position = Vector2(15, 0)
+shape = SubResource("RectangleShape2D_1msrf")
+
+[node name="Posters" type="Node2D" parent="."]
+
+[node name="Poster01" type="Sprite2D" parent="Posters"]
+position = Vector2(0, 24)
+texture = ExtResource("1_se13s")
+
+[node name="Poster02" type="Sprite2D" parent="Posters"]
+position = Vector2(0, 76)
+texture = ExtResource("2_cenrt")
+
+[node name="Poster03" type="Sprite2D" parent="Posters"]
+position = Vector2(0, 128)
+texture = ExtResource("3_8mxtk")
+
+[node name="Poster04" type="Sprite2D" parent="Posters"]
+position = Vector2(0, 240)
+texture = ExtResource("1_se13s")
+
+[node name="Poster05" type="Sprite2D" parent="Posters"]
+position = Vector2(0, 292)
+texture = ExtResource("2_cenrt")
+
+[node name="Poster06" type="Sprite2D" parent="Posters"]
+position = Vector2(0, 344)
+texture = ExtResource("3_8mxtk")
+
+[node name="Selector" type="Sprite2D" parent="."]
+position = Vector2(0, 184)
+texture = ExtResource("4_hifi1")
