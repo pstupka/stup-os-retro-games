@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://dqam5u3tlq2xu"]
+
+[ext_resource type="Texture2D" uid="uid://bgqwkrvejpuxq" path="res://assets/sprites/buttons.png" id="1_khld2"]
+[ext_resource type="Script" path="res://ui/start_moving_player_button.gd" id="2_2xbbf"]
+[ext_resource type="Texture2D" uid="uid://4xtgsfrgrfv8" path="res://assets/sprites/hand.png" id="2_hb8dd"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v4pov"]
+atlas = ExtResource("1_khld2")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_60svs"]
+atlas = ExtResource("1_khld2")
+region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gflrh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v4pov")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_60svs")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="ButtonSpriteP1" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_gflrh")
+autoplay = "default"
+script = ExtResource("2_2xbbf")
+
+[node name="Hand" type="Sprite2D" parent="."]
+position = Vector2(-20, 0)
+texture = ExtResource("2_hb8dd")
+
+[node name="Hand2" type="Sprite2D" parent="."]
+position = Vector2(20, 0)
+texture = ExtResource("2_hb8dd")
+flip_h = true

@@ -69,7 +69,7 @@ func _on_obstacle_spawn_requested(offset: float) -> void:
 func _on_obstacle_bounds_area_entered(area: Area2D) -> void:
 	if not area.is_in_group("Obstacles") and not is_primary:
 		return
-	Events.emit_signal("obstacle_spawn_request", randi_range(-127, 0))
+	Events.emit_signal("obstacle_spawn_request", randi_range(-135, 5))
 
 
 func _on_player_score_changed(score: int) -> void:
