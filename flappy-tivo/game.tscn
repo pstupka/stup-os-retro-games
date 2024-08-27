@@ -1,9 +1,33 @@
-[gd_scene load_steps=5 format=3 uid="uid://dkgn3yutxso11"]
+[gd_scene load_steps=10 format=3 uid="uid://dkgn3yutxso11"]
 
 [ext_resource type="Script" path="res://game.gd" id="1_rr2f7"]
 [ext_resource type="PackedScene" uid="uid://7q3pivojk6lu" path="res://levels/level.tscn" id="1_svsjp"]
 [ext_resource type="PackedScene" uid="uid://dv0syiw8u61jl" path="res://entities/player.tscn" id="3_71tge"]
 [ext_resource type="Script" path="res://utils/camera_shaker.gd" id="4_dyuye"]
+[ext_resource type="Resource" uid="uid://dsg5beudqg643" path="res://utils/p1_controls.tres" id="5_qyy0b"]
+[ext_resource type="Texture2D" uid="uid://bgqwkrvejpuxq" path="res://assets/sprites/buttons.png" id="6_3v1ws"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v4pov"]
+atlas = ExtResource("6_3v1ws")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_60svs"]
+atlas = ExtResource("6_3v1ws")
+region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gflrh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v4pov")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_60svs")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="Game" type="Node"]
 script = ExtResource("1_rr2f7")
@@ -27,8 +51,9 @@ render_target_update_mode = 4
 [node name="Level" parent="HBoxContainer/SubViewportContainer/SubViewport" instance=ExtResource("1_svsjp")]
 
 [node name="Player" parent="HBoxContainer/SubViewportContainer/SubViewport/Level" instance=ExtResource("3_71tge")]
-modulate = Color(0.868985, 0.868985, 0.868985, 1)
+modulate = Color(0.835294, 0.835294, 0.835294, 1)
 position = Vector2(20, 120)
+controls = ExtResource("5_qyy0b")
 
 [node name="Camera2D" type="Camera2D" parent="HBoxContainer/SubViewportContainer/SubViewport"]
 offset = Vector2(80, 120)
@@ -48,8 +73,9 @@ render_target_update_mode = 4
 is_primary = false
 
 [node name="Player" parent="HBoxContainer/SubViewportContainer2/SubViewport/Level" instance=ExtResource("3_71tge")]
-modulate = Color(1, 0.21, 0.21, 1)
+modulate = Color(0.890196, 0.262745, 0.196078, 1)
 position = Vector2(20, 120)
+controls = ExtResource("5_qyy0b")
 
 [node name="Camera2D" type="Camera2D" parent="HBoxContainer/SubViewportContainer2/SubViewport"]
 offset = Vector2(80, 120)
@@ -59,3 +85,15 @@ script = ExtResource("4_dyuye")
 points = PackedVector2Array(160, 0, 160, 240)
 width = 2.0
 default_color = Color(0.0745098, 0.0745098, 0.0745098, 1)
+
+[node name="PlayerStartButtons" type="Node2D" parent="."]
+
+[node name="ButtonSpriteP1" type="AnimatedSprite2D" parent="PlayerStartButtons"]
+position = Vector2(20, 160)
+sprite_frames = SubResource("SpriteFrames_gflrh")
+autoplay = "default"
+
+[node name="ButtonSpriteP2" type="AnimatedSprite2D" parent="PlayerStartButtons"]
+position = Vector2(179, 160)
+sprite_frames = SubResource("SpriteFrames_gflrh")
+autoplay = "default"

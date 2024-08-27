@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://7q3pivojk6lu"]
+[gd_scene load_steps=13 format=3 uid="uid://7q3pivojk6lu"]
 
 [ext_resource type="Script" path="res://levels/level.gd" id="1_7n63p"]
 [ext_resource type="FontFile" uid="uid://dw2bhf6fq1yq1" path="res://assets/fonts/ThickPixels.ttf" id="2_fe47f"]
 [ext_resource type="Texture2D" uid="uid://dlbpwqped2g8s" path="res://assets/sprites/bg_hbbtv.png" id="2_osirv"]
+[ext_resource type="Shader" path="res://assets/shaders/flame.gdshader" id="4_oieoi"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_1xegp"]
 distance = -240.0
@@ -13,6 +14,31 @@ normal = Vector2(0, 1)
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_qq8hd"]
 normal = Vector2(1, 0)
 distance = -200.0
+
+[sub_resource type="Gradient" id="Gradient_nj3ce"]
+offsets = PackedFloat32Array(0.0798817, 0.121302, 0.260355, 0.41716, 1)
+colors = PackedColorArray(0.0745098, 0.0745098, 0.0745098, 0, 0.07, 0.07, 0.07, 0.254902, 0, 0.75, 1, 1, 0, 0.85, 1, 1, 0.835294, 0.835294, 0.835294, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_rw6ra"]
+gradient = SubResource("Gradient_nj3ce")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x2ykp"]
+shader = ExtResource("4_oieoi")
+shader_parameter/scroll1 = Vector2(0.04, 0.1)
+shader_parameter/scroll2 = Vector2(0.12, 1.2)
+shader_parameter/color_texture = SubResource("GradientTexture1D_rw6ra")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_wo7hg"]
+noise_type = 2
+frequency = 0.0645
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_10b1n"]
+width = 320
+height = 30
+generate_mipmaps = false
+seamless = true
+seamless_blend_skirt = 1.0
+noise = SubResource("FastNoiseLite_wo7hg")
 
 [node name="Level" type="Node"]
 script = ExtResource("1_7n63p")
@@ -66,3 +92,22 @@ theme_override_fonts/font = ExtResource("2_fe47f")
 theme_override_font_sizes/font_size = 32
 text = "0"
 horizontal_alignment = 1
+
+[node name="FireBottom" type="Sprite2D" parent="."]
+top_level = true
+z_index = 2
+texture_repeat = 2
+material = SubResource("ShaderMaterial_x2ykp")
+position = Vector2(0, 210)
+texture = SubResource("NoiseTexture2D_10b1n")
+centered = false
+
+[node name="FireTop" type="Sprite2D" parent="."]
+top_level = true
+z_index = 2
+texture_repeat = 2
+material = SubResource("ShaderMaterial_x2ykp")
+position = Vector2(0, 30)
+scale = Vector2(1, -1)
+texture = SubResource("NoiseTexture2D_10b1n")
+centered = false
