@@ -16,8 +16,8 @@ normal = Vector2(1, 0)
 distance = -200.0
 
 [sub_resource type="Gradient" id="Gradient_nj3ce"]
-offsets = PackedFloat32Array(0.0798817, 0.121302, 0.260355, 0.41716, 1)
-colors = PackedColorArray(0.0745098, 0.0745098, 0.0745098, 0, 0.07, 0.07, 0.07, 0.254902, 0, 0.75, 1, 1, 0, 0.85, 1, 1, 0.835294, 0.835294, 0.835294, 1)
+offsets = PackedFloat32Array(0.0798817, 0.14497, 0.188769, 0.213859, 0.260355, 0.41716, 1)
+colors = PackedColorArray(0.0745098, 0.0745098, 0.0745098, 0, 0.07, 0.07, 0.07, 0.254902, 0.0745098, 0.0745098, 0.0745098, 1, 0.0745098, 0.0745098, 0.0745098, 1, 0, 0.75, 1, 1, 0, 0.85, 1, 1, 0.835294, 0.835294, 0.835294, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_rw6ra"]
 gradient = SubResource("Gradient_nj3ce")
@@ -30,7 +30,7 @@ shader_parameter/color_texture = SubResource("GradientTexture1D_rw6ra")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_wo7hg"]
 noise_type = 2
-frequency = 0.0645
+frequency = 0.1217
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_10b1n"]
 width = 320
@@ -61,6 +61,7 @@ shape = SubResource("WorldBoundaryShape2D_oa1sn")
 
 [node name="ObstacleBounds" type="Area2D" parent="."]
 collision_layer = 4
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ObstacleBounds"]
 shape = SubResource("WorldBoundaryShape2D_qq8hd")
@@ -87,6 +88,7 @@ theme_override_constants/margin_top = 30
 
 [node name="ScoreLabel" type="Label" parent="GUI/MarginContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.835294, 0.835294, 0.835294, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_fe47f")
 theme_override_font_sizes/font_size = 32

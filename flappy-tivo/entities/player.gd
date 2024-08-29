@@ -56,7 +56,7 @@ func _physics_process(delta: float) -> void:
 
 
 func animation_sprite(position_delta: float, animate_eyes: bool = true) -> void:
-	leg_l.rotation_degrees = clamp(position_delta * 35, 0, 35)
+	leg_l.rotation_degrees = -clamp(position_delta * 35, 0, 35)
 	leg_r.rotation_degrees = clamp(position_delta * 35, 0, 35)
 	antenna_l.rotation_degrees = clamp(-position_delta * 20, -20, 0)
 	antenna_r.rotation_degrees = clamp(position_delta * 20, 0, 20)

@@ -5,10 +5,10 @@
 [ext_resource type="Texture2D" uid="uid://c5egoejyjgpse" path="res://assets/sprites/eyes.png" id="3_yvc60"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c3xut"]
-size = Vector2(18, 16)
+size = Vector2(19, 17)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0ln6c"]
-size = Vector2(8, 5)
+size = Vector2(9, 5)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6inw2"]
 atlas = ExtResource("3_yvc60")
@@ -61,14 +61,17 @@ z_index = 1
 collision_layer = 2
 script = ExtResource("1_vqee6")
 
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+scale = Vector2(2, 2)
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -1)
+position = Vector2(-0.5, -1.5)
 shape = SubResource("RectangleShape2D_c3xut")
 
 [node name="BottomCollision" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BottomCollision"]
-position = Vector2(0, 9.5)
+position = Vector2(-0.5, 9.5)
 shape = SubResource("RectangleShape2D_0ln6c")
 
 [node name="EyesBlinkTimer" type="Timer" parent="."]
@@ -78,11 +81,11 @@ autostart = true
 [node name="SpritePivot" type="Node2D" parent="."]
 
 [node name="Body" type="Sprite2D" parent="SpritePivot"]
-position = Vector2(-9, -9)
+position = Vector2(-11, -10)
 texture = ExtResource("2_l2dv1")
 centered = false
 region_enabled = true
-region_rect = Rect2(1, 6, 18, 20)
+region_rect = Rect2(1, 1, 22, 21)
 
 [node name="Eyes" type="AnimatedSprite2D" parent="SpritePivot"]
 position = Vector2(-3, -4)
@@ -92,34 +95,34 @@ autoplay = "idle"
 centered = false
 
 [node name="AntennaL" type="Sprite2D" parent="SpritePivot"]
-position = Vector2(-3, -9)
+position = Vector2(-1, -9)
 texture = ExtResource("2_l2dv1")
 centered = false
-offset = Vector2(-5, -6)
+offset = Vector2(-7, -7)
 region_enabled = true
-region_rect = Rect2(2, 0, 5, 6)
+region_rect = Rect2(1, 23, 7, 7)
 
 [node name="AntennaR" type="Sprite2D" parent="SpritePivot"]
 position = Vector2(-1, -9)
 texture = ExtResource("2_l2dv1")
 centered = false
-offset = Vector2(0, -6)
+offset = Vector2(0, -7)
 region_enabled = true
-region_rect = Rect2(9, 0, 4, 6)
+region_rect = Rect2(8, 23, 6, 7)
 
 [node name="LegL" type="Sprite2D" parent="SpritePivot"]
-position = Vector2(-3, 10)
+position = Vector2(-2, 9)
 texture = ExtResource("2_l2dv1")
 centered = false
+offset = Vector2(-5, 0)
 region_enabled = true
-region_rect = Rect2(12, 26, 5, 2)
+region_rect = Rect2(17, 26, 6, 4)
 
 [node name="LegR" type="Sprite2D" parent="SpritePivot"]
-position = Vector2(1, 10)
+position = Vector2(1, 9)
+rotation = 0.0129456
 texture = ExtResource("2_l2dv1")
 centered = false
+offset = Vector2(-1, 0)
 region_enabled = true
-region_rect = Rect2(12, 26, 5, 2)
-
-[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
-scale = Vector2(2, 2)
+region_rect = Rect2(24, 26, 7, 4)
