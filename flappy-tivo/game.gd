@@ -60,7 +60,7 @@ func _on_restart_button_pressed() -> void:
 
 
 func _on_player_died() -> void:
-	if players["1"].player.dead:
+	if players["1"].player.dead and not single_player:
 		players["2"].level.is_primary = true
 
 	for player in players.values():

@@ -1,5 +1,8 @@
 extends Node
 
+signal loading_finished
+signal loading_started
+
 signal add_shake_trauma(amount: float)
 signal player_score_changed(id: int, score: int)
 

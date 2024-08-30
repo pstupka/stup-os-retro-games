@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://dwi5nbggu6nxw"]
+
+[ext_resource type="Script" path="res://ui/loading_screen/loading_screen.gd" id="1_gmtfb"]
+[ext_resource type="Texture2D" uid="uid://drniqwdkivcd7" path="res://ui/loading_screen/sprites/loading.png" id="2_vvucs"]
+
+[node name="LoadingScreen" type="CanvasLayer"]
+script = ExtResource("1_gmtfb")
+
+[node name="Pivot" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Pivot"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0745098, 0.0745098, 0.0745098, 1)
+
+[node name="LoadingTexture" type="TextureRect" parent="Pivot"]
+layout_mode = 0
+offset_left = 144.0
+offset_top = 104.0
+offset_right = 176.0
+offset_bottom = 136.0
+pivot_offset = Vector2(16, 16)
+texture = ExtResource("2_vvucs")

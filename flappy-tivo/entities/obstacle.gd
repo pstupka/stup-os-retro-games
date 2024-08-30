@@ -4,6 +4,7 @@ extends Area2D
 @onready var score_area: Area2D = $ScoreArea
 @onready var score_selector: Sprite2D = $ScoreSelector
 @onready var score_particles: GPUParticles2D = $ScoreParticles
+@onready var outlines: Node2D = $Outlines
 
 
 func _ready() -> void:
@@ -20,4 +21,8 @@ func _on_score_area_entered(area: Area2D) -> void:
 
 		tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
 		tween.tween_property(score_selector, "scale", Vector2(1, 1), 0.4).from(Vector2(1.3, 1.3))
+
+		tween = score_selector.create_tween()
+		tween.tween_property(outlines, "modulate", Color("00a7e1"), 0.2)
+
 		score_particles.emitting = true

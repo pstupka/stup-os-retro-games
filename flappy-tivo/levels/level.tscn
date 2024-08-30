@@ -1,8 +1,8 @@
 [gd_scene load_steps=13 format=3 uid="uid://7q3pivojk6lu"]
 
 [ext_resource type="Script" path="res://levels/level.gd" id="1_7n63p"]
-[ext_resource type="FontFile" uid="uid://dw2bhf6fq1yq1" path="res://assets/fonts/ThickPixels.ttf" id="2_fe47f"]
 [ext_resource type="Texture2D" uid="uid://dlbpwqped2g8s" path="res://assets/sprites/bg_hbbtv.png" id="2_osirv"]
+[ext_resource type="FontFile" uid="uid://c7d6tvedivv6j" path="res://assets/fonts/flappy-font.ttf" id="3_4hyo7"]
 [ext_resource type="Shader" path="res://assets/shaders/flame.gdshader" id="4_oieoi"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_1xegp"]
@@ -90,7 +90,9 @@ theme_override_constants/margin_top = 30
 layout_mode = 2
 theme_override_colors/font_color = Color(0.835294, 0.835294, 0.835294, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2_fe47f")
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_fonts/font = ExtResource("3_4hyo7")
 theme_override_font_sizes/font_size = 32
 text = "0"
 horizontal_alignment = 1
