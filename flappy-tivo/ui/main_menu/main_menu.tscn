@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cx1j0mls6phlh"]
+[gd_scene load_steps=20 format=3 uid="uid://cx1j0mls6phlh"]
 
 [ext_resource type="Script" path="res://ui/main_menu/main_menu.gd" id="1_6qwiw"]
 [ext_resource type="Texture2D" uid="uid://dlbpwqped2g8s" path="res://assets/sprites/bg_hbbtv.png" id="1_o67v1"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://1k5jyt6u7jwb" path="res://assets/sprites/main_menu/button_text_pvp.png" id="7_vumtl"]
 [ext_resource type="Texture2D" uid="uid://omdo8dc8tobh" path="res://assets/sprites/main_menu/button_play.png" id="8_4iuj2"]
 [ext_resource type="Texture2D" uid="uid://duslexnbvbo1n" path="res://assets/sprites/tivoguy_menu.png" id="9_wqjcn"]
+[ext_resource type="Texture2D" uid="uid://cuxkoyf12t8sl" path="res://assets/sprites/main_menu/button_exit.png" id="11_bdmic"]
 
 [sub_resource type="Resource" id="Resource_rsa6p"]
 script = ExtResource("6_v1uix")
@@ -51,6 +52,12 @@ modulate = Color(0, 0.654902, 0.882353, 1)
 script = ExtResource("6_v1uix")
 option_name = "Play"
 option_texture = ExtResource("8_4iuj2")
+modulate = Color(1, 1, 1, 1)
+
+[sub_resource type="Resource" id="Resource_4tbme"]
+script = ExtResource("6_v1uix")
+option_name = "EXIT"
+option_texture = ExtResource("11_bdmic")
 modulate = Color(1, 1, 1, 1)
 
 [node name="MainMenu" type="Control"]
@@ -115,7 +122,7 @@ alignment = 1
 
 [node name="PlayerNumberButton" parent="CenterContainer/MarginContainer/ButtonsContainer" instance=ExtResource("5_d0gpx")]
 layout_mode = 2
-focus_neighbor_left = NodePath("../Play")
+focus_neighbor_left = NodePath("../Exit")
 init_options = Array[ExtResource("6_v1uix")]([SubResource("Resource_rsa6p"), SubResource("Resource_3e1rj")])
 
 [node name="SelectP1Button" parent="CenterContainer/MarginContainer/ButtonsContainer" instance=ExtResource("5_d0gpx")]
@@ -129,6 +136,11 @@ is_disabled = true
 
 [node name="Play" parent="CenterContainer/MarginContainer/ButtonsContainer" instance=ExtResource("5_d0gpx")]
 layout_mode = 2
-focus_neighbor_right = NodePath("../PlayerNumberButton")
 arrows_disabled = true
 init_options = Array[ExtResource("6_v1uix")]([SubResource("Resource_runp4")])
+
+[node name="Exit" parent="CenterContainer/MarginContainer/ButtonsContainer" instance=ExtResource("5_d0gpx")]
+layout_mode = 2
+focus_neighbor_right = NodePath("../PlayerNumberButton")
+arrows_disabled = true
+init_options = Array[ExtResource("6_v1uix")]([SubResource("Resource_4tbme")])

@@ -15,7 +15,7 @@ const MAX_VELOCITY: float = 300
 @onready var leg_l: Sprite2D = $SpritePivot/LegL
 @onready var leg_r: Sprite2D = $SpritePivot/LegR
 @onready var eyes_blink_timer: Timer = $EyesBlinkTimer
-@onready var bottom_collision: Area2D = $BottomCollision
+@onready var top_down_collision: Area2D = $TopDownCollision
 
 @export var controls: PlayerControls = preload("res://utils/p0_controls.tres")
 @export var jump_velocity: float = 250.0
@@ -33,7 +33,7 @@ func _ready() -> void:
 	_prev_position = position.y
 
 	eyes_blink_timer.timeout.connect(_on_blink_timer_timeout)
-	bottom_collision.area_entered.connect(_on_bottom_area_entered)
+	top_down_collision.area_entered.connect(_on_top_down_area_entered)
 
 
 func _physics_process(delta: float) -> void:
@@ -76,7 +76,8 @@ func die(impulse_velocity: Vector2 = Vector2.ZERO) -> void:
 	died.emit()
 	velocity = impulse_velocity
 	$CollisionShape2D.call_deferred("set_disabled", true)
-	$BottomCollision/CollisionShape2D.call_deferred("set_disabled", true)
+	$TopDownCollision/CollisionShape2D.call_deferred("set_disabled", true)
+	$TopDownCollision/CollisionShape2D2.call_deferred("set_disabled", true)
 	eyes_blink_timer.stop()
 	eyes.play("dead")
 	#queue_free()
@@ -92,7 +93,7 @@ func _on_area_entered(area: Area2D) -> void:
 		die(Vector2(-30, -MAX_VELOCITY * 0.5))
 
 
-func _on_bottom_area_entered(area: Area2D) -> void:
+func _on_top_down_area_entered(area: Area2D) -> void:
 	if area.is_in_group("Obstacles"):
 		die(Vector2(30, -MAX_VELOCITY * 0.5))
 
