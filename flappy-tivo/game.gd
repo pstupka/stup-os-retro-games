@@ -1,5 +1,5 @@
 extends Node
-
+class_name Game
 
 @onready var split_line: Line2D = $SplitLine
 @onready var players: Dictionary = {
@@ -24,11 +24,8 @@ extends Node
 @onready var player_start_buttons: Node2D = $PlayerStartButtons
 @onready var restart_button: Button = $RestartButton
 
-@export var single_player: bool = true
-
-
 func _ready() -> void:
-	if single_player:
+	if GameController.single_player:
 		players["2"].viewport_container.queue_free()
 		players["2"].start_button.queue_free()
 		split_line.queue_free()
@@ -41,10 +38,11 @@ func _ready() -> void:
 	else:
 		players["2"].player.score_changed.connect(players["2"].level._on_player_score_changed)
 		players["2"].player.died.connect(_on_player_died)
+		players["2"].player.modulate = GameController.p2_color
 
 	players["1"].player.score_changed.connect(players["1"].level._on_player_score_changed)
 	players["1"].player.died.connect(_on_player_died)
-
+	players["1"].player.modulate = GameController.p1_color
 	restart_button.pressed.connect(_on_restart_button_pressed)
 
 
@@ -60,7 +58,7 @@ func _on_restart_button_pressed() -> void:
 
 
 func _on_player_died() -> void:
-	if players["1"].player.dead and not single_player:
+	if players["1"].player.dead and not GameController.single_player:
 		players["2"].level.is_primary = true
 
 	for player in players.values():

@@ -1,0 +1,134 @@
+[gd_scene load_steps=18 format=3 uid="uid://cx1j0mls6phlh"]
+
+[ext_resource type="Script" path="res://ui/main_menu/main_menu.gd" id="1_6qwiw"]
+[ext_resource type="Texture2D" uid="uid://dlbpwqped2g8s" path="res://assets/sprites/bg_hbbtv.png" id="1_o67v1"]
+[ext_resource type="FontFile" uid="uid://c7d6tvedivv6j" path="res://assets/fonts/flappy-font.ttf" id="2_g7k4h"]
+[ext_resource type="PackedScene" uid="uid://dwi5nbggu6nxw" path="res://ui/loading_screen/loading_screen.tscn" id="3_t7igq"]
+[ext_resource type="PackedScene" uid="uid://b40jk1iyrrlvn" path="res://ui/main_menu/menu_button.tscn" id="5_d0gpx"]
+[ext_resource type="Texture2D" uid="uid://bynownh6l8afe" path="res://assets/sprites/main_menu/button_text_p1.png" id="6_b2fxx"]
+[ext_resource type="Script" path="res://ui/main_menu/menu_option.gd" id="6_v1uix"]
+[ext_resource type="Texture2D" uid="uid://1k5jyt6u7jwb" path="res://assets/sprites/main_menu/button_text_pvp.png" id="7_vumtl"]
+[ext_resource type="Texture2D" uid="uid://omdo8dc8tobh" path="res://assets/sprites/main_menu/button_play.png" id="8_4iuj2"]
+[ext_resource type="Texture2D" uid="uid://duslexnbvbo1n" path="res://assets/sprites/tivoguy_menu.png" id="9_wqjcn"]
+
+[sub_resource type="Resource" id="Resource_rsa6p"]
+script = ExtResource("6_v1uix")
+option_name = "P1"
+option_texture = ExtResource("6_b2fxx")
+modulate = Color(1, 1, 1, 1)
+
+[sub_resource type="Resource" id="Resource_3e1rj"]
+script = ExtResource("6_v1uix")
+option_name = "PVP"
+option_texture = ExtResource("7_vumtl")
+modulate = Color(1, 1, 1, 1)
+
+[sub_resource type="Resource" id="Resource_k7s1y"]
+script = ExtResource("6_v1uix")
+option_name = "P1_WHITE"
+option_texture = ExtResource("9_wqjcn")
+modulate = Color(0.835294, 0.835294, 0.835294, 1)
+
+[sub_resource type="Resource" id="Resource_gpi56"]
+script = ExtResource("6_v1uix")
+option_name = "P1_GREEN"
+option_texture = ExtResource("9_wqjcn")
+modulate = Color(0.643137, 0.890196, 0.490196, 1)
+
+[sub_resource type="Resource" id="Resource_fugei"]
+script = ExtResource("6_v1uix")
+option_name = "P1_RED"
+option_texture = ExtResource("9_wqjcn")
+modulate = Color(0.890196, 0.262745, 0.196078, 1)
+
+[sub_resource type="Resource" id="Resource_umaya"]
+script = ExtResource("6_v1uix")
+option_name = "P1_BLUE"
+option_texture = ExtResource("9_wqjcn")
+modulate = Color(0, 0.654902, 0.882353, 1)
+
+[sub_resource type="Resource" id="Resource_runp4"]
+script = ExtResource("6_v1uix")
+option_name = "Play"
+option_texture = ExtResource("8_4iuj2")
+modulate = Color(1, 1, 1, 1)
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6qwiw")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_o67v1")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
+clip_contents = false
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0.0745098, 0.0745098, 0.0745098, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/normal_font = ExtResource("2_g7k4h")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "[center][shake rate=3.0 level=1 connected=0][color=#00a7e1]Flappy TiVo[/color][/shake][/center]"
+fit_content = true
+scroll_active = false
+threaded = true
+
+[node name="LoadingScreen" parent="." instance=ExtResource("3_t7igq")]
+visible = false
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 20
+
+[node name="ButtonsContainer" type="HBoxContainer" parent="CenterContainer/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="PlayerNumberButton" parent="CenterContainer/MarginContainer/ButtonsContainer" instance=ExtResource("5_d0gpx")]
+layout_mode = 2
+focus_neighbor_left = NodePath("../Play")
+init_options = Array[ExtResource("6_v1uix")]([SubResource("Resource_rsa6p"), SubResource("Resource_3e1rj")])
+
+[node name="SelectP1Button" parent="CenterContainer/MarginContainer/ButtonsContainer" instance=ExtResource("5_d0gpx")]
+layout_mode = 2
+init_options = Array[ExtResource("6_v1uix")]([SubResource("Resource_k7s1y"), SubResource("Resource_gpi56"), SubResource("Resource_fugei"), SubResource("Resource_umaya")])
+
+[node name="SelectP2Button" parent="CenterContainer/MarginContainer/ButtonsContainer" instance=ExtResource("5_d0gpx")]
+layout_mode = 2
+init_options = Array[ExtResource("6_v1uix")]([SubResource("Resource_k7s1y"), SubResource("Resource_gpi56"), SubResource("Resource_fugei"), SubResource("Resource_umaya")])
+is_disabled = true
+
+[node name="Play" parent="CenterContainer/MarginContainer/ButtonsContainer" instance=ExtResource("5_d0gpx")]
+layout_mode = 2
+focus_neighbor_right = NodePath("../PlayerNumberButton")
+arrows_disabled = true
+init_options = Array[ExtResource("6_v1uix")]([SubResource("Resource_runp4")])

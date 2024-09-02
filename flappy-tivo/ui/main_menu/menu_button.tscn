@@ -1,0 +1,52 @@
+[gd_scene load_steps=4 format=3 uid="uid://b40jk1iyrrlvn"]
+
+[ext_resource type="Texture2D" uid="uid://b2de6toxjx37e" path="res://assets/sprites/arrow_up.png" id="1_1nd7q"]
+[ext_resource type="Script" path="res://ui/main_menu/menu_button.gd" id="1_fg158"]
+[ext_resource type="StyleBox" uid="uid://c0evw1wf0tui4" path="res://ui/main_menu/button_normal.tres" id="3_1re6n"]
+
+[node name="MenuButton" type="VBoxContainer"]
+focus_mode = 2
+alignment = 1
+script = ExtResource("1_fg158")
+
+[node name="ArrowUp" type="TextureRect" parent="."]
+modulate = Color(0.835294, 0.835294, 0.835294, 1)
+layout_mode = 2
+texture = ExtResource("1_1nd7q")
+stretch_mode = 3
+
+[node name="ContentPanel" type="Panel" parent="."]
+texture_filter = 1
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("3_1re6n")
+
+[node name="MarginContainer" type="MarginContainer" parent="ContentPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="ScrollContainer" type="ScrollContainer" parent="ContentPanel/MarginContainer"]
+layout_mode = 2
+follow_focus = true
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+
+[node name="OptionsContainer" type="VBoxContainer" parent="ContentPanel/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 20
+
+[node name="ArrowDown" type="TextureRect" parent="."]
+modulate = Color(0.835294, 0.835294, 0.835294, 1)
+layout_mode = 2
+texture = ExtResource("1_1nd7q")
+stretch_mode = 3
+flip_v = true
