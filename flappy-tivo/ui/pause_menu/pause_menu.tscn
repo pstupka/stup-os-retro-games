@@ -1,0 +1,68 @@
+[gd_scene load_steps=10 format=3 uid="uid://dxwcdw371t1kt"]
+
+[ext_resource type="PackedScene" uid="uid://b40jk1iyrrlvn" path="res://ui/main_menu/menu_button.tscn" id="1_epokg"]
+[ext_resource type="Script" path="res://ui/pause_menu/pause_menu.gd" id="1_nqlus"]
+[ext_resource type="Script" path="res://ui/main_menu/menu_option.gd" id="2_7qte5"]
+[ext_resource type="Texture2D" uid="uid://fm1njvpodlla" path="res://assets/sprites/main_menu/button_restart.png" id="3_3d4dm"]
+[ext_resource type="Texture2D" uid="uid://ddxmdxrc4h34w" path="res://assets/sprites/main_menu/button_home.png" id="4_r7rbm"]
+[ext_resource type="Texture2D" uid="uid://cuxkoyf12t8sl" path="res://assets/sprites/main_menu/button_exit.png" id="6_u6ags"]
+
+[sub_resource type="Resource" id="Resource_e1mpi"]
+script = ExtResource("2_7qte5")
+option_name = "Restart"
+option_texture = ExtResource("3_3d4dm")
+modulate = Color(1, 1, 1, 1)
+
+[sub_resource type="Resource" id="Resource_teumj"]
+script = ExtResource("2_7qte5")
+option_name = ""
+option_texture = ExtResource("4_r7rbm")
+modulate = Color(1, 1, 1, 1)
+
+[sub_resource type="Resource" id="Resource_4tbme"]
+script = ExtResource("2_7qte5")
+option_name = "EXIT"
+option_texture = ExtResource("6_u6ags")
+modulate = Color(1, 1, 1, 1)
+
+[node name="PauseMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -240.0
+offset_bottom = -240.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nqlus")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 20
+
+[node name="ButtonsContainer" type="HBoxContainer" parent="CenterContainer/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Restart" parent="CenterContainer/MarginContainer/ButtonsContainer" instance=ExtResource("1_epokg")]
+layout_mode = 2
+focus_neighbor_left = NodePath("../Exit")
+init_options = Array[ExtResource("2_7qte5")]([SubResource("Resource_e1mpi")])
+
+[node name="MainMenu" parent="CenterContainer/MarginContainer/ButtonsContainer" instance=ExtResource("1_epokg")]
+layout_mode = 2
+init_options = Array[ExtResource("2_7qte5")]([SubResource("Resource_teumj")])
+
+[node name="Exit" parent="CenterContainer/MarginContainer/ButtonsContainer" instance=ExtResource("1_epokg")]
+layout_mode = 2
+focus_neighbor_right = NodePath("../Restart")
+arrows_disabled = true
+init_options = Array[ExtResource("2_7qte5")]([SubResource("Resource_4tbme")])

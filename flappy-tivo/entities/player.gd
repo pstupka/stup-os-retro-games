@@ -37,7 +37,7 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if not GameController.game_started:
+	if not GameController.game_state == GameController.GAME_STARTED:
 		time_tick += delta
 		position.y += sin(10 * time_tick)
 		animation_sprite(_prev_position - position.y, false)
@@ -56,8 +56,8 @@ func _physics_process(delta: float) -> void:
 
 
 func animation_sprite(position_delta: float, animate_eyes: bool = true) -> void:
-	leg_l.rotation_degrees = -clamp(position_delta * 35, 0, 35)
-	leg_r.rotation_degrees = clamp(position_delta * 35, 0, 35)
+	leg_l.rotation_degrees = -clamp(position_delta * 35, -10, 35)
+	leg_r.rotation_degrees = clamp(position_delta * 35, -10, 35)
 	antenna_l.rotation_degrees = clamp(-position_delta * 20, -20, 0)
 	antenna_r.rotation_degrees = clamp(position_delta * 20, 0, 20)
 	if animate_eyes:
@@ -89,7 +89,7 @@ func _on_area_entered(area: Area2D) -> void:
 		print(str(self) + ": Score = " + str(score))
 		return
 
-	if area.is_in_group("Obstacles"):
+	if not dead and area.is_in_group("Obstacles"):
 		die(Vector2(-30, -MAX_VELOCITY * 0.5))
 
 

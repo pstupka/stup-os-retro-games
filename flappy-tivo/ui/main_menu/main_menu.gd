@@ -1,4 +1,6 @@
 extends Control
+
+
 const GAME: PackedScene = preload("res://game.tscn")
 @onready var player_number_button: FlappyMenuButton = $CenterContainer/MarginContainer/ButtonsContainer/PlayerNumberButton
 @onready var select_p_1_button: FlappyMenuButton = $CenterContainer/MarginContainer/ButtonsContainer/SelectP1Button
@@ -7,6 +9,7 @@ const GAME: PackedScene = preload("res://game.tscn")
 @onready var exit: FlappyMenuButton = $CenterContainer/MarginContainer/ButtonsContainer/Exit
 
 var current_button: FlappyMenuButton
+
 
 func _ready() -> void:
 	connect_signals()
@@ -32,7 +35,8 @@ func _input(event: InputEvent) -> void:
 			play.name:
 				get_tree().change_scene_to_packed(GAME)
 			exit.name:
-				get_tree().quit()
+				GameController.quit()
+
 
 
 func _on_button_focused(button: FlappyMenuButton) -> void:

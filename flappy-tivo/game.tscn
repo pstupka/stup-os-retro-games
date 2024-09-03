@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dkgn3yutxso11"]
+[gd_scene load_steps=8 format=3 uid="uid://dkgn3yutxso11"]
 
 [ext_resource type="Script" path="res://game.gd" id="1_rr2f7"]
 [ext_resource type="PackedScene" uid="uid://7q3pivojk6lu" path="res://levels/level.tscn" id="1_svsjp"]
@@ -6,18 +6,7 @@
 [ext_resource type="Script" path="res://utils/camera_shaker.gd" id="4_dyuye"]
 [ext_resource type="Resource" uid="uid://dsg5beudqg643" path="res://utils/p1_controls.tres" id="5_qyy0b"]
 [ext_resource type="PackedScene" uid="uid://dqam5u3tlq2xu" path="res://ui/start_moving_player_button.tscn" id="6_dtgvv"]
-[ext_resource type="Texture2D" uid="uid://dxhqfj1dwxhbl" path="res://assets/sprites/arrow_clockwise.png" id="7_uusfk"]
 [ext_resource type="PackedScene" uid="uid://dwi5nbggu6nxw" path="res://ui/loading_screen/loading_screen.tscn" id="8_8udh0"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pcisp"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h3vt4"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kq0de"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3846i"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j1ma0"]
 
 [node name="Game" type="Node"]
 script = ExtResource("1_rr2f7")
@@ -84,31 +73,6 @@ position = Vector2(30, 160)
 
 [node name="ButtonSpriteP2" parent="PlayerStartButtons" instance=ExtResource("6_dtgvv")]
 position = Vector2(190, 160)
-
-[node name="RestartButton" type="Button" parent="."]
-visible = false
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -32.0
-offset_top = -32.0
-offset_right = 32.0
-offset_bottom = 32.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/icon_normal_color = Color(0.709804, 0.709804, 0.709804, 1)
-theme_override_colors/icon_focus_color = Color(0.835294, 0.835294, 0.835294, 1)
-theme_override_colors/icon_pressed_color = Color(0, 0.654902, 0.882353, 1)
-theme_override_colors/icon_hover_color = Color(0.835294, 0.835294, 0.835294, 1)
-theme_override_styles/focus = SubResource("StyleBoxEmpty_pcisp")
-theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_h3vt4")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_kq0de")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_3846i")
-theme_override_styles/normal = SubResource("StyleBoxEmpty_j1ma0")
-icon = ExtResource("7_uusfk")
-icon_alignment = 1
 
 [node name="LoadingScreen" parent="." instance=ExtResource("8_8udh0")]
 loading_time = 0.9

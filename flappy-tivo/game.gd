@@ -1,6 +1,9 @@
 extends Node
 class_name Game
 
+
+const PAUSE_MENU = preload("res://ui/pause_menu/pause_menu.tscn")
+
 @onready var split_line: Line2D = $SplitLine
 @onready var players: Dictionary = {
 	"1": {
@@ -22,9 +25,9 @@ class_name Game
 }
 @onready var primary_level: Level = $HBoxContainer/SubViewportContainer/SubViewport/Level
 @onready var player_start_buttons: Node2D = $PlayerStartButtons
-@onready var restart_button: Button = $RestartButton
 
 func _ready() -> void:
+	Events.loading_finished.connect(_on_loading_finished)
 	if GameController.single_player:
 		players["2"].viewport_container.queue_free()
 		players["2"].start_button.queue_free()
@@ -43,18 +46,16 @@ func _ready() -> void:
 	players["1"].player.score_changed.connect(players["1"].level._on_player_score_changed)
 	players["1"].player.died.connect(_on_player_died)
 	players["1"].player.modulate = GameController.p1_color
-	restart_button.pressed.connect(_on_restart_button_pressed)
 
 
 func _input(event: InputEvent) -> void:
-	if not GameController.game_started and (event.is_action_pressed("p0_jump") or event.is_action_pressed("p1_jump")):
+	if GameController.game_state == GameController.GAME_READY and (event.is_action_pressed("p0_jump") or event.is_action_pressed("p1_jump")):
 		GameController.request_start_game()
 		player_start_buttons.queue_free()
 
 
-func _on_restart_button_pressed() -> void:
-	GameController.game_started = false
-	get_tree().reload_current_scene()
+func _on_loading_finished() -> void:
+	GameController.game_state = GameController.GAME_READY
 
 
 func _on_player_died() -> void:
@@ -65,5 +66,4 @@ func _on_player_died() -> void:
 		if is_instance_valid(player.player) and not player.player.dead:
 			return
 
-	restart_button.show()
-	restart_button.grab_focus()
+	add_child(PAUSE_MENU.instantiate())
