@@ -5,6 +5,8 @@ class_name PauseMenu
 @onready var restart: FlappyMenuButton = $CenterContainer/MarginContainer/ButtonsContainer/Restart
 @onready var main_menu: FlappyMenuButton = $CenterContainer/MarginContainer/ButtonsContainer/MainMenu
 @onready var exit: FlappyMenuButton = $CenterContainer/MarginContainer/ButtonsContainer/Exit
+@onready var menu_move: AudioStreamPlayer = $Sfx/MenuMove
+@onready var menu_select: AudioStreamPlayer = $Sfx/MenuSelect
 
 var current_button: FlappyMenuButton
 
@@ -23,12 +25,21 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_accept"):
 		match current_button.name:
 			restart.name:
+				menu_select.play()
+				restart.animate_push()
+				await menu_select.finished
 				GameController.restart()
 			main_menu.name:
+				menu_select.play()
+				main_menu.animate_push()
+				await menu_select.finished
 				GameController.main_menu()
 			exit.name:
+				exit.animate_push()
+				menu_select.play()
 				GameController.quit()
 
 
 func _on_button_focused(button: FlappyMenuButton) -> void:
 	current_button = button
+	menu_move.play()

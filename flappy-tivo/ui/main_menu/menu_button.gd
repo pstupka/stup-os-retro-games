@@ -9,6 +9,8 @@ const BUTTON_DISABLED: StyleBoxFlat = preload("res://ui/main_menu/button_disable
 @onready var scroll_container: ScrollContainer = $ContentPanel/MarginContainer/ScrollContainer
 @onready var options_container: VBoxContainer = $ContentPanel/MarginContainer/ScrollContainer/OptionsContainer
 @onready var content_panel: Panel = $ContentPanel
+@onready var menu_option_changed: AudioStreamPlayer = $Sfx/MenuOptionChanged
+
 
 @export var arrows_disabled: bool = false
 @export var init_options: Array[MenuOption] = []
@@ -20,15 +22,16 @@ var options: Array = []
 		if is_disabled:
 			focus_mode = FOCUS_NONE
 			if content_panel:
-				content_panel.add_theme_stylebox_override("panel", BUTTON_DISABLED)
+				content_panel.modulate.a = 0.7
 			if options_container:
 				options_container.modulate.a = 0.0
 		else:
 			focus_mode = FOCUS_ALL
 			if content_panel:
-				content_panel.add_theme_stylebox_override("panel", BUTTON_NORMAL)
+				content_panel.modulate.a = 1.0
 			if options_container:
 				options_container.modulate.a = 1.0
+@export var menu_hint: String = ""
 
 
 func _ready() -> void:
@@ -43,6 +46,7 @@ func _ready() -> void:
 		options_container.add_child(texture_rect)
 	options = options_container.get_children()
 	eval_arrows()
+	content_panel.pivot_offset = content_panel.size / 2
 
 
 func show_arrows() -> void:
@@ -65,6 +69,7 @@ func select_next() -> void:
 	tween.parallel().tween_property(arrow_down, "position:y", arrow_down.position.y, 0.2).from(arrow_down.position.y + 5)
 	tween.tween_callback(eval_arrows)
 	Events.menu_button_option_changed.emit(self, init_options[current_option_idx])
+	menu_option_changed.play()
 
 
 func select_previous() -> void:
@@ -78,6 +83,7 @@ func select_previous() -> void:
 	tween.parallel().tween_property(arrow_up, "position:y", arrow_up.position.y, 0.2).from(arrow_up.position.y - 5)
 	tween.tween_callback(eval_arrows)
 	Events.menu_button_option_changed.emit(self, init_options[current_option_idx])
+	menu_option_changed.play()
 
 
 func eval_arrows() -> void:
@@ -92,9 +98,15 @@ func eval_arrows() -> void:
 		arrow_up.self_modulate.a = 1.0
 
 
+func animate_push(strength: float = 1.3) -> void:
+	var tween: Tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
+	tween.tween_property(content_panel, "scale", Vector2.ONE, 0.4).from(Vector2.ONE * strength)
+
+
 func _on_focus_entered() -> void:
 	show_arrows()
 	content_panel.add_theme_stylebox_override("panel", BUTTON_FOCUS)
+	animate_push()
 
 
 func _on_focus_exited() -> void:

@@ -1,8 +1,10 @@
-[gd_scene load_steps=20 format=3 uid="uid://cx1j0mls6phlh"]
+[gd_scene load_steps=23 format=3 uid="uid://cx1j0mls6phlh"]
 
 [ext_resource type="Script" path="res://ui/main_menu/main_menu.gd" id="1_6qwiw"]
 [ext_resource type="Texture2D" uid="uid://dlbpwqped2g8s" path="res://assets/sprites/bg_hbbtv.png" id="1_o67v1"]
 [ext_resource type="FontFile" uid="uid://c7d6tvedivv6j" path="res://assets/fonts/flappy-font.ttf" id="2_g7k4h"]
+[ext_resource type="AudioStream" uid="uid://dekurcu5yf8af" path="res://assets/audio/sfx_menu_move4.wav" id="2_hwd1u"]
+[ext_resource type="AudioStream" uid="uid://cgiidx0fyglfd" path="res://assets/audio/sfx_menu_select2.wav" id="3_4jvya"]
 [ext_resource type="PackedScene" uid="uid://dwi5nbggu6nxw" path="res://ui/loading_screen/loading_screen.tscn" id="3_t7igq"]
 [ext_resource type="PackedScene" uid="uid://b40jk1iyrrlvn" path="res://ui/main_menu/menu_button.tscn" id="5_d0gpx"]
 [ext_resource type="Texture2D" uid="uid://bynownh6l8afe" path="res://assets/sprites/main_menu/button_text_p1.png" id="6_b2fxx"]
@@ -11,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://omdo8dc8tobh" path="res://assets/sprites/main_menu/button_play.png" id="8_4iuj2"]
 [ext_resource type="Texture2D" uid="uid://duslexnbvbo1n" path="res://assets/sprites/tivoguy_menu.png" id="9_wqjcn"]
 [ext_resource type="Texture2D" uid="uid://cuxkoyf12t8sl" path="res://assets/sprites/main_menu/button_exit.png" id="11_bdmic"]
+[ext_resource type="FontFile" uid="uid://dw2bhf6fq1yq1" path="res://assets/fonts/ThickPixels.ttf" id="14_g7t0g"]
 
 [sub_resource type="Resource" id="Resource_rsa6p"]
 script = ExtResource("6_v1uix")
@@ -69,6 +72,16 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_6qwiw")
 
+[node name="Sfx" type="Node" parent="."]
+
+[node name="MenuMove" type="AudioStreamPlayer" parent="Sfx"]
+stream = ExtResource("2_hwd1u")
+bus = &"Sfx"
+
+[node name="MenuSelect" type="AudioStreamPlayer" parent="Sfx"]
+stream = ExtResource("3_4jvya")
+bus = &"Sfx"
+
 [node name="Background" type="TextureRect" parent="."]
 layout_mode = 0
 offset_right = 40.0
@@ -114,33 +127,59 @@ grow_vertical = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="CenterContainer"]
 layout_mode = 2
-theme_override_constants/margin_top = 20
+theme_override_constants/margin_top = 60
 
-[node name="ButtonsContainer" type="HBoxContainer" parent="CenterContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/MarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="ButtonsContainer" type="HBoxContainer" parent="CenterContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
 alignment = 1
 
-[node name="PlayerNumberButton" parent="CenterContainer/MarginContainer/ButtonsContainer" instance=ExtResource("5_d0gpx")]
+[node name="PlayerNumberButton" parent="CenterContainer/MarginContainer/VBoxContainer/ButtonsContainer" instance=ExtResource("5_d0gpx")]
+unique_name_in_owner = true
 layout_mode = 2
 focus_neighbor_left = NodePath("../Exit")
 init_options = Array[ExtResource("6_v1uix")]([SubResource("Resource_rsa6p"), SubResource("Resource_3e1rj")])
+menu_hint = "Game Mode"
 
-[node name="SelectP1Button" parent="CenterContainer/MarginContainer/ButtonsContainer" instance=ExtResource("5_d0gpx")]
+[node name="SelectP1Button" parent="CenterContainer/MarginContainer/VBoxContainer/ButtonsContainer" instance=ExtResource("5_d0gpx")]
+unique_name_in_owner = true
 layout_mode = 2
 init_options = Array[ExtResource("6_v1uix")]([SubResource("Resource_k7s1y"), SubResource("Resource_gpi56"), SubResource("Resource_fugei"), SubResource("Resource_umaya")])
+menu_hint = "Player 1"
 
-[node name="SelectP2Button" parent="CenterContainer/MarginContainer/ButtonsContainer" instance=ExtResource("5_d0gpx")]
+[node name="SelectP2Button" parent="CenterContainer/MarginContainer/VBoxContainer/ButtonsContainer" instance=ExtResource("5_d0gpx")]
+unique_name_in_owner = true
 layout_mode = 2
 init_options = Array[ExtResource("6_v1uix")]([SubResource("Resource_k7s1y"), SubResource("Resource_gpi56"), SubResource("Resource_fugei"), SubResource("Resource_umaya")])
 is_disabled = true
+menu_hint = "Player 2"
 
-[node name="Play" parent="CenterContainer/MarginContainer/ButtonsContainer" instance=ExtResource("5_d0gpx")]
+[node name="Play" parent="CenterContainer/MarginContainer/VBoxContainer/ButtonsContainer" instance=ExtResource("5_d0gpx")]
+unique_name_in_owner = true
 layout_mode = 2
 arrows_disabled = true
 init_options = Array[ExtResource("6_v1uix")]([SubResource("Resource_runp4")])
+menu_hint = "Play"
 
-[node name="Exit" parent="CenterContainer/MarginContainer/ButtonsContainer" instance=ExtResource("5_d0gpx")]
+[node name="Exit" parent="CenterContainer/MarginContainer/VBoxContainer/ButtonsContainer" instance=ExtResource("5_d0gpx")]
+unique_name_in_owner = true
 layout_mode = 2
 focus_neighbor_right = NodePath("../PlayerNumberButton")
 arrows_disabled = true
 init_options = Array[ExtResource("6_v1uix")]([SubResource("Resource_4tbme")])
+menu_hint = "Quit"
+
+[node name="MenuHint" type="Label" parent="CenterContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_constants/shadow_outline_size = 2
+theme_override_fonts/font = ExtResource("14_g7t0g")
+theme_override_font_sizes/font_size = 16
+text = "Game Mode"
+horizontal_alignment = 1

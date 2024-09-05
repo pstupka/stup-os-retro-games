@@ -17,6 +17,10 @@ const MAX_VELOCITY: float = 300
 @onready var eyes_blink_timer: Timer = $EyesBlinkTimer
 @onready var top_down_collision: Area2D = $TopDownCollision
 
+@onready var jump: AudioStreamPlayer = $Sfx/Jump
+@onready var die_sfx: AudioStreamPlayer = $Sfx/Die
+@onready var score_sfx: AudioStreamPlayer = $Sfx/Score
+
 @export var controls: PlayerControls = preload("res://utils/p0_controls.tres")
 @export var jump_velocity: float = 250.0
 @export var player_gravity: float = 500.0
@@ -46,7 +50,8 @@ func _physics_process(delta: float) -> void:
 	velocity.y += player_gravity * delta
 
 	if Input.is_action_just_pressed(controls.jump) and not dead:
-		#print(controls.jump + " pressed")
+		jump.pitch_scale = randf_range(0.95, 1.05)
+		jump.play()
 		velocity.y -= jump_velocity
 
 	velocity.y = clamp(velocity.y, -MAX_VELOCITY * 0.7, MAX_VELOCITY)
@@ -65,6 +70,7 @@ func animation_sprite(position_delta: float, animate_eyes: bool = true) -> void:
 
 
 func add_score(score_to_add: int) -> void:
+	score_sfx.play()
 	score += score_to_add
 	score_changed.emit(score)
 
@@ -80,6 +86,7 @@ func die(impulse_velocity: Vector2 = Vector2.ZERO) -> void:
 	$TopDownCollision/CollisionShape2D2.call_deferred("set_disabled", true)
 	eyes_blink_timer.stop()
 	eyes.play("dead")
+	die_sfx.play()
 	#queue_free()
 
 
