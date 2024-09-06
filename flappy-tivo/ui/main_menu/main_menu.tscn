@@ -150,6 +150,7 @@ unique_name_in_owner = true
 layout_mode = 2
 init_options = Array[ExtResource("6_v1uix")]([SubResource("Resource_k7s1y"), SubResource("Resource_gpi56"), SubResource("Resource_fugei"), SubResource("Resource_umaya")])
 menu_hint = "Player 1"
+arrows_modulate = Color(0, 0.654902, 0.882353, 1)
 
 [node name="SelectP2Button" parent="CenterContainer/MarginContainer/VBoxContainer/ButtonsContainer" instance=ExtResource("5_d0gpx")]
 unique_name_in_owner = true
@@ -157,6 +158,7 @@ layout_mode = 2
 init_options = Array[ExtResource("6_v1uix")]([SubResource("Resource_k7s1y"), SubResource("Resource_gpi56"), SubResource("Resource_fugei"), SubResource("Resource_umaya")])
 is_disabled = true
 menu_hint = "Player 2"
+arrows_modulate = Color(0.890196, 0.262745, 0.196078, 1)
 
 [node name="Play" parent="CenterContainer/MarginContainer/VBoxContainer/ButtonsContainer" instance=ExtResource("5_d0gpx")]
 unique_name_in_owner = true

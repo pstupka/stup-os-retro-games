@@ -12,11 +12,9 @@ var current_button: FlappyMenuButton
 var can_pick: bool = true
 
 func _ready() -> void:
-	current_button = restart
 	restart.focus_entered.connect(_on_button_focused.bind(restart))
 	main_menu.focus_entered.connect(_on_button_focused.bind(main_menu))
 	exit.focus_entered.connect(_on_button_focused.bind(exit))
-
 
 	var tween: Tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
 	tween.tween_property(self, "position:y", 0, 0.6)
@@ -24,7 +22,7 @@ func _ready() -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_accept"):
+	if event.is_action_pressed("ui_accept") and current_button:
 		match current_button.name:
 			restart.name:
 				set_process_input(false)
@@ -38,7 +36,6 @@ func _input(event: InputEvent) -> void:
 				main_menu.animate_push()
 				await menu_select.finished
 				GameController.main_menu()
-
 
 			exit.name:
 				set_process_input(false)

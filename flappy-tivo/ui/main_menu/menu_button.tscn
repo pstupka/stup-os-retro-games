@@ -18,7 +18,6 @@ stream = ExtResource("2_s1yw8")
 bus = &"Sfx"
 
 [node name="ArrowUp" type="TextureRect" parent="."]
-modulate = Color(0.835294, 0.835294, 0.835294, 1)
 layout_mode = 2
 texture = ExtResource("1_1nd7q")
 stretch_mode = 3
@@ -57,7 +56,6 @@ size_flags_horizontal = 3
 theme_override_constants/separation = 20
 
 [node name="ArrowDown" type="TextureRect" parent="."]
-modulate = Color(0.835294, 0.835294, 0.835294, 1)
 layout_mode = 2
 texture = ExtResource("1_1nd7q")
 stretch_mode = 3

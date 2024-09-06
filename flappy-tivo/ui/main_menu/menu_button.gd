@@ -32,11 +32,11 @@ var options: Array = []
 			if options_container:
 				options_container.modulate.a = 1.0
 @export var menu_hint: String = ""
+@export var arrows_modulate: Color = Color.WHITE
 
 
 func _ready() -> void:
 	is_disabled = is_disabled
-	hide_arrows()
 	focus_entered.connect(_on_focus_entered)
 	focus_exited.connect(_on_focus_exited)
 	for option in init_options:
@@ -45,18 +45,10 @@ func _ready() -> void:
 		texture_rect.modulate = option.modulate
 		options_container.add_child(texture_rect)
 	options = options_container.get_children()
-	eval_arrows()
 	content_panel.pivot_offset = content_panel.size / 2
-
-
-func show_arrows() -> void:
-	arrow_up.modulate.a = 1.0
-	arrow_down.modulate.a = 1.0
-
-
-func hide_arrows() -> void:
-	arrow_up.modulate.a = 0.0
-	arrow_down.modulate.a = 0.0
+	arrow_up.self_modulate = arrows_modulate
+	arrow_down.self_modulate = arrows_modulate
+	eval_arrows()
 
 
 func select_next() -> void:
@@ -104,11 +96,9 @@ func animate_push(strength: float = 1.3) -> void:
 
 
 func _on_focus_entered() -> void:
-	show_arrows()
 	content_panel.add_theme_stylebox_override("panel", BUTTON_FOCUS)
 	animate_push()
 
 
 func _on_focus_exited() -> void:
-	hide_arrows()
 	content_panel.add_theme_stylebox_override("panel", BUTTON_NORMAL)
