@@ -38,14 +38,15 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_accept"):
 		match current_button.name:
 			play.name:
+				set_process_input(false)
 				menu_select.play()
 				play.animate_push()
 				await menu_select.finished
 				get_tree().change_scene_to_packed(GAME)
 			exit.name:
-				play.animate_push()
+				set_process_input(false)
+				exit.animate_push()
 				GameController.quit()
-
 
 
 func _on_button_focused(button: FlappyMenuButton) -> void:
