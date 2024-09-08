@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://16k6l2nnfjx4"]
+
+[ext_resource type="Texture2D" uid="uid://c5egoejyjgpse" path="res://assets/sprites/eyes.png" id="1_aeuyk"]
+[ext_resource type="Script" path="res://entities/jump_particles.gd" id="2_qgws6"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_f3fvr"]
+particles_animation = true
+particles_anim_h_frames = 2
+particles_anim_v_frames = 3
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_cphtw"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.472678, 0.754098)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_lm41u"]
+gradient = SubResource("Gradient_cphtw")
+width = 128
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8fg3s"]
+lifetime_randomness = 0.38
+particle_flag_disable_z = true
+direction = Vector3(0, 1, 0)
+spread = 90.0
+initial_velocity_min = 15.0
+initial_velocity_max = 30.0
+gravity = Vector3(0, 0, 0)
+color_ramp = SubResource("GradientTexture1D_lm41u")
+hue_variation_min = -0.39
+hue_variation_max = 0.51
+anim_offset_max = 1.0
+
+[node name="JumpParticles" type="GPUParticles2D"]
+top_level = true
+material = SubResource("CanvasItemMaterial_f3fvr")
+position = Vector2(0, 12)
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_8fg3s")
+texture = ExtResource("1_aeuyk")
+lifetime = 1.1
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+local_coords = true
+script = ExtResource("2_qgws6")

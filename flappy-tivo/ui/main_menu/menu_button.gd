@@ -25,12 +25,20 @@ var options: Array = []
 				content_panel.modulate.a = 0.7
 			if options_container:
 				options_container.modulate.a = 0.0
+			if arrow_up:
+				arrow_up.modulate.a = 0.0
+			if arrow_down:
+				arrow_down.modulate.a = 0.0
 		else:
 			focus_mode = FOCUS_ALL
 			if content_panel:
 				content_panel.modulate.a = 1.0
 			if options_container:
 				options_container.modulate.a = 1.0
+			if arrow_up:
+				arrow_up.modulate.a = 1.0
+			if arrow_down:
+				arrow_down.modulate.a = 1.0
 @export var menu_hint: String = ""
 @export var arrows_modulate: Color = Color.WHITE
 

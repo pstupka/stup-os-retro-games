@@ -11,6 +11,7 @@ class_name PauseMenu
 var current_button: FlappyMenuButton
 var can_pick: bool = true
 
+
 func _ready() -> void:
 	restart.focus_entered.connect(_on_button_focused.bind(restart))
 	main_menu.focus_entered.connect(_on_button_focused.bind(main_menu))
@@ -36,11 +37,11 @@ func _input(event: InputEvent) -> void:
 				main_menu.animate_push()
 				await menu_select.finished
 				GameController.main_menu()
-
 			exit.name:
 				set_process_input(false)
 				exit.animate_push()
 				menu_select.play()
+				await menu_select.finished
 				GameController.quit()
 
 

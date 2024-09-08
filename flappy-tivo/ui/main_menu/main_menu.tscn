@@ -1,12 +1,13 @@
-[gd_scene load_steps=23 format=3 uid="uid://cx1j0mls6phlh"]
+[gd_scene load_steps=24 format=3 uid="uid://cx1j0mls6phlh"]
 
 [ext_resource type="Script" path="res://ui/main_menu/main_menu.gd" id="1_6qwiw"]
 [ext_resource type="Texture2D" uid="uid://dlbpwqped2g8s" path="res://assets/sprites/bg_hbbtv.png" id="1_o67v1"]
-[ext_resource type="FontFile" uid="uid://c7d6tvedivv6j" path="res://assets/fonts/flappy-font.ttf" id="2_g7k4h"]
 [ext_resource type="AudioStream" uid="uid://dekurcu5yf8af" path="res://assets/audio/sfx_menu_move4.wav" id="2_hwd1u"]
 [ext_resource type="AudioStream" uid="uid://cgiidx0fyglfd" path="res://assets/audio/sfx_menu_select2.wav" id="3_4jvya"]
 [ext_resource type="PackedScene" uid="uid://dwi5nbggu6nxw" path="res://ui/loading_screen/loading_screen.tscn" id="3_t7igq"]
 [ext_resource type="PackedScene" uid="uid://b40jk1iyrrlvn" path="res://ui/main_menu/menu_button.tscn" id="5_d0gpx"]
+[ext_resource type="FontFile" uid="uid://bdtakvlcdiwdj" path="res://assets/fonts/FlappybirdyRegular-KaBW.ttf" id="5_qekwp"]
+[ext_resource type="Texture2D" uid="uid://dr5c5uum40uih" path="res://assets/sprites/logo_flappy_tivo_v2.png" id="6_34key"]
 [ext_resource type="Texture2D" uid="uid://bynownh6l8afe" path="res://assets/sprites/main_menu/button_text_p1.png" id="6_b2fxx"]
 [ext_resource type="Script" path="res://ui/main_menu/menu_option.gd" id="6_v1uix"]
 [ext_resource type="Texture2D" uid="uid://1k5jyt6u7jwb" path="res://assets/sprites/main_menu/button_text_pvp.png" id="7_vumtl"]
@@ -102,17 +103,22 @@ layout_mode = 2
 size_flags_vertical = 0
 
 [node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
+visible = false
 clip_contents = false
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0.0745098, 0.0745098, 0.0745098, 1)
-theme_override_constants/outline_size = 5
-theme_override_fonts/normal_font = ExtResource("2_g7k4h")
-theme_override_font_sizes/normal_font_size = 32
+theme_override_fonts/normal_font = ExtResource("5_qekwp")
+theme_override_font_sizes/normal_font_size = 64
 bbcode_enabled = true
-text = "[center][wave freq=10 amp=30][color=#00a7e1]Flappy TiVo[/color][/wave][/center]"
+text = "[center][wave freq=10 amp=30][color=#00a7e1]FlappyTiVo[/color][/wave][/center]"
 fit_content = true
 scroll_active = false
 threaded = true
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("6_34key")
+stretch_mode = 3
 
 [node name="LoadingScreen" parent="." instance=ExtResource("3_t7igq")]
 visible = false
@@ -144,6 +150,7 @@ layout_mode = 2
 focus_neighbor_left = NodePath("../Exit")
 init_options = Array[ExtResource("6_v1uix")]([SubResource("Resource_rsa6p"), SubResource("Resource_3e1rj")])
 menu_hint = "Game Mode"
+arrows_modulate = Color(0.835294, 0.835294, 0.835294, 1)
 
 [node name="SelectP1Button" parent="CenterContainer/MarginContainer/VBoxContainer/ButtonsContainer" instance=ExtResource("5_d0gpx")]
 unique_name_in_owner = true
@@ -178,6 +185,7 @@ menu_hint = "Quit"
 [node name="MenuHint" type="Label" parent="CenterContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_colors/font_color = Color(0.835294, 0.835294, 0.835294, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 8
 theme_override_constants/shadow_outline_size = 2

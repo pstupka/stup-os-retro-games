@@ -46,6 +46,8 @@ func _input(event: InputEvent) -> void:
 			exit.name:
 				set_process_input(false)
 				exit.animate_push()
+				menu_select.play()
+				await menu_select.finished
 				GameController.quit()
 
 

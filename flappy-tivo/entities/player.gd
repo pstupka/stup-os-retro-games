@@ -7,7 +7,7 @@ signal died()
 signal score_changed()
 
 const MAX_VELOCITY: float = 300
-
+const JUMP_PARTICLES = preload("res://entities/jump_particles.tscn")
 @onready var body: Sprite2D = $SpritePivot/Body
 @onready var eyes: AnimatedSprite2D = $SpritePivot/Eyes
 @onready var antenna_l: Sprite2D = $SpritePivot/AntennaL
@@ -44,7 +44,7 @@ func _physics_process(delta: float) -> void:
 	if not GameController.game_state == GameController.GAME_STARTED:
 		time_tick += delta
 		position.y += sin(10 * time_tick)
-		animation_sprite(_prev_position - position.y, false)
+		animation_sprite((_prev_position - position.y), false)
 		_prev_position = position.y
 		return
 	velocity.y += player_gravity * delta
@@ -52,6 +52,7 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed(controls.jump) and not dead:
 		jump.pitch_scale = randf_range(0.95, 1.05)
 		jump.play()
+		spawn_jump_particles()
 		velocity.y -= jump_velocity
 
 	velocity.y = clamp(velocity.y, -MAX_VELOCITY * 0.7, MAX_VELOCITY)
@@ -88,6 +89,13 @@ func die(impulse_velocity: Vector2 = Vector2.ZERO) -> void:
 	eyes.play("dead")
 	die_sfx.play()
 	#queue_free()
+
+
+func spawn_jump_particles() -> void:
+	var jump_particles = JUMP_PARTICLES.instantiate()
+	jump_particles.global_position = global_position + Vector2(0, 12)
+	add_child(jump_particles)
+	jump_particles.emitting = true
 
 
 func _on_area_entered(area: Area2D) -> void:
